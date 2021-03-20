@@ -5,8 +5,15 @@ import Vue from 'vue'
 Vue.config.devtools = false;
 Vue.config.productionTip = false;
 
+Vue.component('top', require('./components/Header').default);
+
 import router from "./routes";
 const app = new Vue({
     el: '#app',
-    router
+    data() {
+        return {
+            path: window.location.origin,
+        }
+    },
+    router,
 });

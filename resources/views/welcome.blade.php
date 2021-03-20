@@ -10,7 +10,11 @@
 <body>
 
 <div id="app">
-    <router-view></router-view>
+    <top> </top>
+    <div class="container">
+
+        <router-view></router-view>
+    </div>
 </div>
 
 </body>
