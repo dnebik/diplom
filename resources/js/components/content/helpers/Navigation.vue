@@ -1,7 +1,7 @@
 <template>
     <div class="nav">
 
-        <div class="body" v-if="currentRoute === '/documents'">
+        <div class="body" v-if="route === '/documents'">
             <router-link :to="{name: 'docs'}">
                 <div class="name">Мои документы</div>
             </router-link>
@@ -22,9 +22,25 @@
 <script>
 export default {
     name: "Navigation",
-    computed: {
-        currentRoute() {
-            return this.$route.matched[0].path;
+    data() {
+        return {
+            route: ''
+        }
+    },
+    mounted() {
+        this.update();
+    },
+    watch: {
+        $route: {
+            handler(to, from) {
+                this.update();
+            }
+        },
+    },
+    methods: {
+        update() {
+            this.route = this.$route.matched[0].path;
+            this.$emit('updated');
         }
     }
 }
