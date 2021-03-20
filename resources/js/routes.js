@@ -19,10 +19,10 @@ const routes = [
         meta: {title: 'Документы'},
         children: [
             { path: '/', redirect: 'my_docs' },
-            { path: 'my_docs', name: 'my_docs', component: MyDocuments },
-            { path: 'requests', name: 'requests', component: Requests },
-            { path: 'history', name: 'history', component: History },
-            { path: 'search', name: 'search', component: Search },
+            { path: 'my_docs', name: 'my_docs', meta: {title: 'Мои Документы'}, component: MyDocuments },
+            { path: 'requests', name: 'requests', meta: {title: 'Запросы'},component: Requests },
+            { path: 'history', name: 'history', meta: {title: 'История'},component: History },
+            { path: 'search', name: 'search', meta: {title: 'Поиск'},component: Search },
         ]
     },
 

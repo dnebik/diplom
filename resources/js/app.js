@@ -25,7 +25,15 @@ const app = new Vue({
         $route: {
             immediate: true,
             handler(to, from) {
-                document.title = to.meta.title || DEFAULT_TITLE;
+                console.log(to.matched);
+                document.title = '';
+                for (let i = 0; i < to.matched.length; i++)
+                {
+                    if (typeof to.matched[i]['meta']['title'] !== "undefined")
+                        document.title = to.matched[i]['meta']['title'] + ' | ' + document.title;
+                }
+                if (document.title !== '') document.title = document.title + ' ' + DEFAULT_TITLE;
+                else document.title = DEFAULT_TITLE;
             }
         },
     },
