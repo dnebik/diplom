@@ -2,7 +2,7 @@ import vueRouter from 'vue-router';
 import Vue from "vue";
 
 Vue.use(vueRouter);
-import example from "./components/example";
+import Auth from "./components/content/Auth";
 
 import Documents from "./components/content/Documents";
 import MyDocuments from "./components/content/Documents/MyDocuments";
@@ -28,6 +28,13 @@ const routes = [
             { path: 'history', name: 'history', meta: {title: 'История'},component: History },
             { path: 'search', name: 'search', meta: {title: 'Поиск'},component: Search },
         ]
+    },
+
+    {
+        path: '/auth',
+        name: 'auth',
+        component: Auth,
+        meta: {title: 'Вход'},
     },
 
     {
