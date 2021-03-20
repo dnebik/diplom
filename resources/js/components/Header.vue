@@ -80,6 +80,9 @@ export default {
                         align-items: center
                         height: 100%
 
+                        &:hover
+                            background-color: #01717460
+
                     .right
                         margin-left: auto
 
