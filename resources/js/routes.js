@@ -18,12 +18,11 @@ import Monitoring from "./components/content/Monitoring";
 const routes = [
     {
         path: '/documents',
-        name: 'docs',
         component: Documents,
         meta: {title: 'Документы'},
         children: [
-            { path: '/', redirect: 'my_docs' },
-            { path: 'my_docs', name: 'my_docs', meta: {title: 'Мои Документы'}, component: MyDocuments },
+            { path: '', redirect: 'my_docs' },
+            { path: 'my_docs', name: 'docs', meta: {title: 'Мои Документы'}, component: MyDocuments },
             { path: 'requests', name: 'requests', meta: {title: 'Запросы'},component: Requests },
             { path: 'history', name: 'history', meta: {title: 'История'},component: History },
             { path: 'search', name: 'search', meta: {title: 'Поиск'},component: Search },
