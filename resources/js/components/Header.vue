@@ -114,6 +114,7 @@ export default {
 
         },
         toggleMenu() {
+            if (!this.isAuthed) return;
             let nav = this.$refs['mobile_navigation'];
             let btn = this.$refs['menu_button'];
 
@@ -121,12 +122,14 @@ export default {
             btn.classList.toggle('hide')
         },
         menuHeightUpdate() {
+            if (!this.isAuthed) return;
             let nav = this.$refs['mobile_navigation'];
             setTimeout(function () {
                 nav.style.maxHeight = nav.scrollHeight + 'px';
             }, 5)
         },
         widthCheck() {
+            if (!this.isAuthed) return;
             let width = window.innerWidth;
             if (width > 414)
             {
