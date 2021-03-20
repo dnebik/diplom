@@ -65,10 +65,10 @@ export default {
             .name
                 margin-right: 51px
 
-            &.router-link-active
+            &.router-link-exact-active
                 background-color: #028F91
                 color: #ffffff
-            &:not(.router-link-active)
+            &:not(.router-link-exact-active)
                 color: #48ACAD
 
     a

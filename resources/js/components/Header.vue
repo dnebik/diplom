@@ -280,7 +280,10 @@ export default {
                 height: 100%
                 display: flex
                 align-items: center
-            .menu-arrow:not(.hide)
-                transform: rotate(180deg)
+                &:not(.hide)
+                    transform: rotate(180deg)
+                @media (min-width: 414px)
+                    display: none
+
 
 </style>
