@@ -28,6 +28,8 @@ a, a:hover, a:active {
     border: unset;
     border-radius: 3px;
     width: max-content;
+    font-size: 14px;
+    cursor: pointer;
     &.primary {
         color: #FFFFFF;
         background-color: #028F91;
@@ -41,5 +43,9 @@ a, a:hover, a:active {
         &:focus {
             box-shadow: 0 0 4px #89E8C0;
         }
+    }
+    &:disabled {
+        background-color: #D2D2D2;
+        color: #ffffff;
     }
 }

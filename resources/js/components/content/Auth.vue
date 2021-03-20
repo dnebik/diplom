@@ -1,8 +1,11 @@
 <template>
     <div class="auth">
         <h1>Авторизация</h1>
-        <Input v-model="login" label="Логин"/>
-        <Input v-model="password" password label="Пароль"/>
+        <form @submit.prevent="login()">
+            <Input v-model="login" label="Логин"/>
+            <Input v-model="password" password label="Пароль"/>
+            <button :disabled="!validate" class="btn submit" type="submit">Войти</button>
+        </form>
     </div>
 </template>
 
@@ -10,14 +13,19 @@
 import Input from "./UI/Input";
 export default {
     name: "Auth",
+    components: {
+        Input,
+    },
     data() {
         return {
             login: '',
             password: '',
         }
     },
-    components: {
-        Input,
+    computed: {
+        validate() {
+            return this.login.toString().length > 0 && this.password.toString().length > 0;
+        }
     }
 }
 </script>
@@ -32,4 +40,6 @@ export default {
             padding-bottom: 23px
             font-size: 24px
             color: #48ACAD
+        .btn
+            float: right
 </style>
