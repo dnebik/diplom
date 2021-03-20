@@ -101,6 +101,7 @@ export default {
 
         .eye
             margin-left: 10px
+            cursor: pointer
 
         &.notEmpty
             border: 2px solid #48ACAD
