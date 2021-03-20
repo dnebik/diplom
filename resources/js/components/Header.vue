@@ -1,5 +1,31 @@
 <template>
     <div class="header">
+
+
+        <div class="mobile-navigation">
+
+            <div class="main-nav">
+                <router-link to="/documents" class="item">
+                    Документы
+                </router-link>
+                <router-link to="/audio" class="item">
+                    Аудио
+                </router-link>
+                <router-link to="/monitoring" class="item">
+                    Мониторинг
+                </router-link>
+                <div @click="exit()" class="item right">
+                    Выход
+                </div>
+            </div>
+
+            <div class="sub-nav">
+                <Navigation></Navigation>
+            </div>
+
+        </div>
+
+
         <div class="line">
             <img class="logo" :src="$root.$data.path + '/images/logo.svg'">
             <div class="title">Document Server</div>
@@ -18,14 +44,19 @@
                     Выход
                 </div>
             </div>
-
         </div>
+
+
     </div>
 </template>
 
 <script>
+import Navigation from "./content/helpers/Navigation";
 export default {
     name: "Header",
+    components: {
+        Navigation,
+    },
     methods: {
         exit() {
 
@@ -43,7 +74,6 @@ export default {
         margin: 0 auto
         @media (min-width: 414px)
             padding-top: 24px
-            margin-bottom: 56px
 
         .line
             position: relative
