@@ -115,7 +115,7 @@ export default {
                     top: 11px
                 .title
                     font-size: 22px
-                    margin: 0 auto
+                    margin-left: 80px
                 .inline-navigate
                     display: none
 
