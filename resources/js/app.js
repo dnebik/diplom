@@ -14,6 +14,13 @@ Vue.component('top', require('./components/Header').default);
 
 
 import router from "./routes";
+
+router.beforeEach(async (to, from, next) => {
+    await Vue.nextTick();
+    if (router.app.user === null && to.name !== 'auth') next({ name: 'auth' });
+    else next();
+})
+
 const app = new Vue({
     el: '#app',
     data() {
