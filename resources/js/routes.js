@@ -9,6 +9,7 @@ import MyDocuments from "./components/content/Documents/MyDocuments";
 import Requests from "./components/content/Documents/Requests";
 import History from "./components/content/Documents/History";
 import Search from "./components/content/Documents/Search";
+import NonExisting from "./components/content/NonExisting";
 
 
 const routes = [
@@ -26,7 +27,7 @@ const routes = [
         ]
     },
 
-    { path: '/non-existing', component: example },
+    { path: '/non-existing', component: NonExisting },
     { path: '*', redirect: '/non-existing'},
 ]
 
