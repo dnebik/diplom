@@ -5,7 +5,7 @@
             <div class="title">Document Server</div>
 
             <div class="inline-navigate">
-                <router-link to="docs" class="item">
+                <router-link to="documents" class="item">
                     Документы
                 </router-link>
                 <router-link to="audio" class="item">
