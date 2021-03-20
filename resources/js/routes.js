@@ -11,6 +11,9 @@ import History from "./components/content/Documents/History";
 import Search from "./components/content/Documents/Search";
 import NonExisting from "./components/content/NonExisting";
 
+import Audio from "./components/content/Audio";
+
+import Monitoring from "./components/content/Monitoring";
 
 const routes = [
     {
@@ -25,6 +28,20 @@ const routes = [
             { path: 'history', name: 'history', meta: {title: 'История'},component: History },
             { path: 'search', name: 'search', meta: {title: 'Поиск'},component: Search },
         ]
+    },
+
+    {
+        path: '/audio',
+        name: 'audio',
+        component: Audio,
+        meta: {title: 'Аудио'},
+    },
+
+    {
+        path: '/monitoring',
+        name: 'monitoring',
+        component: Monitoring,
+        meta: {title: 'Мониторинг'},
     },
 
     { path: '/non-existing', component: NonExisting },
