@@ -21,10 +21,25 @@ a, a:hover, a:active {
     padding-top: 55px;
     padding-bottom: 30px;
     max-width: 1200px;
+}
 
-
-
-
-
-
+.btn {
+    padding: 9px 38px 9px 38px;
+    border: unset;
+    border-radius: 3px;
+    width: max-content;
+    &.primary {
+        color: #FFFFFF;
+        background-color: #028F91;
+        &:focus {
+            box-shadow: 0 0 4px #48ACAD;
+        }
+    }
+    &.submit {
+        color: #105A5B;
+        background-color: #61D1A2;
+        &:focus {
+            box-shadow: 0 0 4px #89E8C0;
+        }
+    }
 }
