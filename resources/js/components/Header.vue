@@ -5,13 +5,13 @@
             <div class="title">Document Server</div>
 
             <div class="inline-navigate">
-                <router-link to="documents" class="item">
+                <router-link to="/documents" class="item">
                     Документы
                 </router-link>
-                <router-link to="audio" class="item">
+                <router-link to="/audio" class="item">
                     Аудио
                 </router-link>
-                <router-link to="monitoring" class="item">
+                <router-link to="/monitoring" class="item">
                     Мониторинг
                 </router-link>
                 <div @click="exit()" class="item right">
@@ -35,6 +35,8 @@ export default {
 </script>
 
 <style scoped lang="sass">
+
+    $button_padding: 10px
 
     .header
         max-width: 1700px
@@ -74,14 +76,24 @@ export default {
                     font-size: 16px
                     height: 100%
                     .item
-                        padding: 0 10px
+                        padding: 0 $button_padding
                         cursor: pointer
                         display: flex
                         align-items: center
                         height: 100%
+                        position: relative
 
                         &:hover
                             background-color: #01717460
+
+                        &.router-link-active:before
+                            content: ' '
+                            width: calc(100% - (#{$button_padding} * 2))
+                            bottom: 16px
+                            position: absolute
+                            height: 1.5px
+                            background-color: #ffffff
+
 
                     .right
                         margin-left: auto
