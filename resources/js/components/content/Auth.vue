@@ -18,8 +18,8 @@ export default {
     },
     data() {
         return {
-            login: '',
-            password: '',
+            login: 'login',
+            password: 'password',
         }
     },
     computed: {
