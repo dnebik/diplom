@@ -10,6 +10,7 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="sass">
+    h1
+        text-align: center
 </style>
