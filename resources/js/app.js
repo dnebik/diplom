@@ -25,7 +25,6 @@ const app = new Vue({
         $route: {
             immediate: true,
             handler(to, from) {
-                console.log(to.matched);
                 document.title = '';
                 for (let i = 0; i < to.matched.length; i++)
                 {
