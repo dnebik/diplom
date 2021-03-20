@@ -2,7 +2,7 @@
     <div class="header">
 
 
-        <div class="mobile-navigation hide" ref="mobile_navigation">
+        <div v-if="isAuthed" class="mobile-navigation hide" ref="mobile_navigation">
 
             <div class="main-nav">
                 <router-link to="/documents" class="item left">
@@ -51,7 +51,7 @@
             <img class="logo" :src="$root.$data.path + '/images/logo.svg'">
             <div class="title">Document Server</div>
 
-            <div class="inline-navigate">
+            <div v-if="isAuthed" class="inline-navigate">
                 <router-link to="/documents" class="item">
                     Документы
                 </router-link>
@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <div class="menu-arrow hide" @click="toggleMenu()" ref="menu_button">
+            <div v-if="isAuthed" class="menu-arrow hide" @click="toggleMenu()" ref="menu_button">
                 <svg width="25" height="15" viewBox="0 0 25 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0)">
                         <path class="left" d="M24.3059 0.701192C23.3805 -0.233731 21.8699 -0.233731 20.9309 0.701192L15.5961 6.09074L10.8601 10.8891C9.93468 11.824 9.93468 13.3501 10.8601 14.2988C11.7855 15.2337 13.2961 15.2337 14.2352 14.2988L19.5699 8.90926L24.3195 4.11091C25.245 3.16224 25.245 1.64986 24.3059 0.701192Z" fill="white"/>
@@ -99,6 +99,11 @@ export default {
                 this.menuHeightUpdate();
             }
         },
+    },
+    computed: {
+        isAuthed() {
+            return this.$parent.$data.user !== null;
+        }
     },
     mounted() {
         this.menuHeightUpdate();

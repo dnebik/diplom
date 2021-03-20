@@ -19,6 +19,7 @@ const app = new Vue({
     data() {
         return {
             path: window.location.origin,
+            user: null,
         }
     },
     watch: {
