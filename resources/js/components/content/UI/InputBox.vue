@@ -26,7 +26,7 @@
 
 <script>
 export default {
-    name: "Input",
+    name: "InputBox",
     model: {
         prop: 'value',
         event: 'input',
@@ -109,6 +109,10 @@ export default {
                 top: 13px
                 left: 13px
                 transition: 0.2s
+                -ms-user-select: none
+                -moz-user-select: none
+                -khtml-user-select: none
+                -webkit-user-select: none
         .eye-wrapper
             padding: 0 8px
             display: flex
@@ -123,7 +127,7 @@ export default {
                 top: -10px
                 color: #48ACAD
             input
-                color: #028F91
+                color: #1D5F60
         &:not(.notEmpty)
             border: 2px solid #D2D2D2
             span

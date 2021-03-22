@@ -17,8 +17,13 @@ import router from "./routes";
 
 router.beforeEach(async (to, from, next) => {
     await Vue.nextTick();
-    if (router.app.user === null && to.name !== 'auth') next({ name: 'auth' });
-    else next();
+    if (router.app.user !== null)
+    {
+        if (to.name === 'auth') next({ name: 'docs' });
+        else next();
+    }
+    else if (to['meta']['guest']) next();
+    else next({ name: 'auth' });
 })
 
 const app = new Vue({

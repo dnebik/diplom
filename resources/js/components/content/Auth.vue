@@ -2,24 +2,28 @@
     <div class="auth">
         <h1>Авторизация</h1>
         <form @submit.prevent="login()">
-            <Input v-model="login" label="Логин"/>
-            <Input v-model="password" password label="Пароль"/>
+            <InputBox v-model="login" label="Логин"/>
+            <InputBox v-model="password" password label="Пароль"/>
+            <InputCheckBox label="Запомнить меня" v-model="remember"/>
             <button :disabled="!validate" class="btn submit" type="submit">Войти</button>
         </form>
     </div>
 </template>
 
 <script>
-import Input from "./UI/Input";
+import InputBox from "./UI/InputBox";
+import InputCheckBox from "./UI/InputCheckBox";
 export default {
     name: "Auth",
     components: {
-        Input,
+        InputBox,
+        InputCheckBox,
     },
     data() {
         return {
             login: 'login',
             password: 'password',
+            remember: true
         }
     },
     computed: {
@@ -42,4 +46,5 @@ export default {
             color: #48ACAD
         .btn
             float: right
+            margin-top: 15px
 </style>

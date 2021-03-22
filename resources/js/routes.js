@@ -19,7 +19,7 @@ const routes = [
     {
         path: '/documents',
         component: Documents,
-        meta: {title: 'Документы'},
+        meta: {title: 'Документы', guest: false},
         children: [
             { path: '', redirect: 'my_docs' },
             { path: 'my_docs', name: 'docs', meta: {title: 'Мои Документы'}, component: MyDocuments },
@@ -33,25 +33,25 @@ const routes = [
         path: '/auth',
         name: 'auth',
         component: Auth,
-        meta: {title: 'Вход'},
+        meta: {title: 'Вход', guest: true},
     },
 
     {
         path: '/audio',
         name: 'audio',
         component: Audio,
-        meta: {title: 'Аудио'},
+        meta: {title: 'Аудио', guest: false},
     },
 
     {
         path: '/monitoring',
         name: 'monitoring',
         component: Monitoring,
-        meta: {title: 'Мониторинг'},
+        meta: {title: 'Мониторинг', guest: false},
     },
 
-    { path: '/non-existing', component: NonExisting },
-    { path: '*', redirect: '/non-existing'},
+    { path: '/non-existing', component: NonExisting, meta: {title: '404', guest: true} },
+    { path: '*', redirect: '/non-existing', meta: {guest: true}},
 ]
 
 export default new vueRouter({
