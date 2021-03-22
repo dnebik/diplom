@@ -153,7 +153,7 @@ export default {
     $button_padding: 10px
 
     .header
-        max-width: 1700px
+        max-width: 1500px
         margin: 0 auto
         @media (min-width: 414px)
             padding-top: 24px

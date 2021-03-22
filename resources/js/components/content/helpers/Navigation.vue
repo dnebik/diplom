@@ -39,6 +39,7 @@ export default {
     },
     methods: {
         update() {
+            if (this.$route.matched.length === 0) return;
             this.route = this.$route.matched[0].path;
             this.$emit('updated');
         }

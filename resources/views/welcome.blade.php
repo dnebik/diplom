@@ -13,9 +13,11 @@
 
 <div id="app">
     <top> </top>
-    <div class="container">
+    <div class="container-wrapper">
+        <div class="container">
 
-        <router-view></router-view>
+            <router-view></router-view>
+        </div>
     </div>
 </div>
 
