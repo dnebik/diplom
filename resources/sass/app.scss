@@ -18,17 +18,34 @@ a, a:hover, a:active {
 //
 .container {
     margin: 0 auto;
-    padding-top: 40px;
+    padding-top: 55px;
     padding-bottom: 30px;
     max-width: 1200px;
+}
 
-
-    h1, h2, h3, h4, h5, p, li, span, label {
-        color: #105A5B;
+.btn {
+    padding: 9px 38px 9px 38px;
+    border: unset;
+    border-radius: 3px;
+    width: max-content;
+    font-size: 14px;
+    cursor: pointer;
+    &.primary {
+        color: #FFFFFF;
+        background-color: #028F91;
+        &:focus {
+            box-shadow: 0 0 4px #48ACAD;
+        }
     }
-
-
-
-
-
+    &.submit {
+        color: #105A5B;
+        background-color: #61D1A2;
+        &:focus {
+            box-shadow: 0 0 4px #89E8C0;
+        }
+    }
+    &:disabled {
+        background-color: #D2D2D2;
+        color: #ffffff;
+    }
 }

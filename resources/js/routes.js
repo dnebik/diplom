@@ -2,7 +2,7 @@ import vueRouter from 'vue-router';
 import Vue from "vue";
 
 Vue.use(vueRouter);
-import example from "./components/example";
+import Auth from "./components/content/Auth";
 
 import Documents from "./components/content/Documents";
 import MyDocuments from "./components/content/Documents/MyDocuments";
@@ -18,16 +18,22 @@ import Monitoring from "./components/content/Monitoring";
 const routes = [
     {
         path: '/documents',
-        // name: 'docs',
         component: Documents,
         meta: {title: 'Документы'},
         children: [
-            { path: '/', redirect: 'my_docs' },
+            { path: '', redirect: 'my_docs' },
             { path: 'my_docs', name: 'docs', meta: {title: 'Мои Документы'}, component: MyDocuments },
             { path: 'requests', name: 'requests', meta: {title: 'Запросы'},component: Requests },
             { path: 'history', name: 'history', meta: {title: 'История'},component: History },
             { path: 'search', name: 'search', meta: {title: 'Поиск'},component: Search },
         ]
+    },
+
+    {
+        path: '/auth',
+        name: 'auth',
+        component: Auth,
+        meta: {title: 'Вход'},
     },
 
     {
