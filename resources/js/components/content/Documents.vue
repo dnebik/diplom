@@ -18,4 +18,10 @@ export default {
 .flex-body
     display: flex
 
+.nv-desctop
+    margin-right: 63px
+    @media (max-width: 414px)
+        display: none
+
+
 </style>
