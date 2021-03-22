@@ -73,10 +73,9 @@ const app = new Vue({
             })
         },
         logout() {
-            let $this = this;
-            axios.post('/user', {})
+            axios.post('/user/logout', {})
                 .then(value => {
-                    this.user = null;
+                    app.user = null;
                     router.push({name: 'auth'});
                 })
                 .catch(reason => {
