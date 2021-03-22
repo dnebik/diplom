@@ -33,7 +33,16 @@ export default {
     },
     methods: {
         auth() {
-            axios.post()
+            let req = axios.post('/user/login',{
+                login: this.login,
+                password: this.password,
+                remember: this.remember,
+            })
+
+            req.then(value => {
+                this.$root.$data.user = value;
+                this.$router.push({name: 'docs'});
+            })
         }
     }
 }
