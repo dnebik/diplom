@@ -24,8 +24,6 @@ class AuthController
             'password' => md5($request->post('password'))
         ])->first();
 
-//        return response($user, 400);
-
         if (!is_null($user)){
             Auth::login($user, $request->post('remember'));
             return response('ok');
@@ -35,5 +33,6 @@ class AuthController
 
     public function logout() {
         Auth::logout();
+        return response('ok');
     }
 }
