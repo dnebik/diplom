@@ -14,9 +14,9 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::any('/user', [AuthController::class, 'index']);
-Route::any('/user/login', [AuthController::class, 'login']);
-Route::any('/user/logout', [AuthController::class, 'logout']);
+Route::post('/user', [AuthController::class, 'index']);
+Route::post('/user/login', [AuthController::class, 'login']);
+Route::post('/user/logout', [AuthController::class, 'logout']);
 
 Route::get('/{any}', function () {
     return view('welcome');
