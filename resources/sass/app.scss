@@ -38,6 +38,17 @@ a, a:hover, a:active {
     }
 }
 
+.flex-body {
+    display: flex;
+}
+
+.nv-desctop {
+    margin-right: 63px;
+    @media (max-width: 414px) {
+        display: none;
+    }
+}
+
 .btn {
     padding: 9px 38px 9px 38px;
     border: unset;

@@ -72,6 +72,39 @@ export default {
             &:not(.router-link-exact-active)
                 color: #48ACAD
 
+    @media (min-width: 414px)
+        .body
+            padding-top: 6px
+            padding-bottom: 6px
+            max-width: 250px
+            width: 100%
+
+        a
+            font-size: 18px
+            height: 32px
+            width: 100%
+            justify-content: left
+            align-items: center
+
+            .name
+                position: relative
+
+            &.router-link-exact-active .name
+                color: #48ACAD
+            &.router-link-exact-active .name:before
+                content: ''
+                background-color: #48ACAD
+                width: 100%
+                height: 2px
+                position: absolute
+                bottom: -2px
+
+            &:not(.router-link-exact-active) .name
+                color: #48ACAD47
+            &:not(.router-link-exact-active):hover .name
+                color: #48ACAD90
+
+
     a
         display: flex
 </style>

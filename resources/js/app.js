@@ -11,6 +11,7 @@ Vue.config.productionTip = false;
 
 
 Vue.component('top', require('./components/Header').default);
+Vue.component('navigate', require('./components/content/helpers/Navigation').default);
 
 
 import router from "./routes";
