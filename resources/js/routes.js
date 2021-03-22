@@ -22,7 +22,7 @@ const routes = [
         meta: {title: 'Документы', guest: false},
         children: [
             { path: '', redirect: {name: 'docs'} },
-            { path: 'my_docs', name: 'docs', meta: {title: 'Мои Документы'}, component: MyDocuments },
+            { path: 'my_docs', name: 'docs', component: MyDocuments },
             { path: 'requests', name: 'requests', meta: {title: 'Запросы'},component: Requests },
             { path: 'history', name: 'history', meta: {title: 'История'},component: History },
             { path: 'search', name: 'search', meta: {title: 'Поиск'},component: Search },
