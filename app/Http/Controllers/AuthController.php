@@ -11,8 +11,22 @@ use Illuminate\Support\Facades\Session;
 class AuthController
 {
     public function index() {
-        if (Auth::user()) return response('Authorized');
+        if (Auth::user()) return response($this->getUser());
         else return response('Unauthorized', 401);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     */
+    public function getUser() {
+        $user = Auth::user();
+        unset($user['id']);
+        unset($user['login']);
+        unset($user['password']);
+        unset($user['unit']);
+        unset($user['status']);
+        unset($user['remember_token']);
+        return $user;
     }
 
     public function login(Request $request) {
@@ -27,9 +41,9 @@ class AuthController
 
         if (!is_null($user)){
             Auth::login($user, $request->post('remember'));
-            return response('ok');
+            return response($this->getUser());
         }
-        else return response('not ok', 401);
+        else return response('Unauthorized', 401);
     }
 
     public function logout() {
