@@ -32,7 +32,7 @@
                         <path d="M1.20645 1.5V37.5" stroke="black" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"/>
                     </svg>
                 </router-link>
-                <div @click="exit()" class="item exit">
+                <div @click="$root.logout()" class="item exit">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M21.3333 0H2.66669C1.19331 0 0 1.19331 0 2.66669V8H2.66669V2.66669H21.3334V21.3334H2.66669V16H0V21.3333C0 22.8067 1.19331 24 2.66669 24H21.3334C22.8067 24 24 22.8067 24 21.3333V2.66669C24 1.19331 22.8067 0 21.3333 0Z" fill="black"/>
                         <path d="M9.44669 16.78L11.3333 18.6667L18 12L11.3333 5.33334L9.44669 7.22003L12.8933 10.6667H0V13.3333H12.8933L9.44669 16.78Z" fill="black"/>
@@ -61,7 +61,7 @@
                 <router-link to="/monitoring" class="item">
                     Мониторинг
                 </router-link>
-                <div @click="exit()" class="item right">
+                <div @click="$root.logout()" class="item right">
                     Выход
                 </div>
             </div>
