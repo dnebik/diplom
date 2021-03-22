@@ -15,12 +15,7 @@
     <top> </top>
     <div class="container-wrapper">
         <div class="container">
-            <div class="flex-body">
-                <div class="nv-desctop">
-                    <navigate></navigate>
-                </div>
-                <router-view></router-view>
-            </div>
+            <router-view></router-view>
         </div>
     </div>
 </div>

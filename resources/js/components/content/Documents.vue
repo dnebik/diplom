@@ -1,6 +1,8 @@
 <template>
-    <div>
-
+    <div class="flex-body">
+        <div class="nv-desctop">
+            <navigate></navigate>
+        </div>
         <router-view></router-view>
     </div>
 </template>
@@ -11,6 +13,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="sass">
+
+.flex-body
+    display: flex
 
 </style>
