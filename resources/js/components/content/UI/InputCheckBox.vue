@@ -65,7 +65,6 @@ $transition: 0.2s
         vertical-align: center
         display: block
         padding-left: calc(#{$checkbox_width} + #{$margin})
-        color: #028F91
 
     .outline
         position: absolute
@@ -85,7 +84,6 @@ $transition: 0.2s
             position: absolute
             display: block
             border-radius: 100%
-            background-color: #A5A5A5
             width: $checker_size
             height: $checker_size
             transition: $transition
@@ -96,12 +94,16 @@ $transition: 0.2s
         .checker
             transform: translateX(#{-1 * ($checkbox_height / 2)})
             background-color: #A5A5A5
+        .label
+            color: #A5A5A5
     &:not(.checked)
         .outline
             background-color: #028F9130
         .checker
             transform: translateX(#{$checkbox_height / 2})
             background-color: #028F91
+        .label
+            color: #028F91
 
 
 </style>

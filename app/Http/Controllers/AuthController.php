@@ -22,7 +22,7 @@ class AuthController
             'password' => md5($request['password'])
         ])->first();
 
-        if (Auth::attempt($user)) return response('ok');
+        if (Auth::attempt($user, $request['remember'])) return response('ok');
         else return response('not ok', 401);
     }
 

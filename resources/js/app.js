@@ -17,9 +17,23 @@ import router from "./routes";
 
 router.beforeEach(async (to, from, next) => {
     await Vue.nextTick();
+
+    if (router.app.user === null)
+    {
+        await router.app.isAuthed()
+            .then(value => {
+                router.app.user = value;
+            })
+            .catch(reason => {router.app.user = null})
+    }
+
     if (router.app.user !== null)
     {
-        if (to.name === 'auth') next({ name: 'docs' });
+        if (to.name === 'auth')
+        {
+            if (from !== null) next(from);
+            else next({name: 'docs'});
+        }
         else next();
     }
     else if (to['meta']['guest']) next();
@@ -28,6 +42,7 @@ router.beforeEach(async (to, from, next) => {
 
 const app = new Vue({
     el: '#app',
+    router,
     data() {
         return {
             path: window.location.origin,
@@ -49,5 +64,24 @@ const app = new Vue({
             }
         },
     },
-    router,
+    methods: {
+        isAuthed() {
+            return new Promise((resolve, reject) => {
+                axios.post('/user', {})
+                    .then(value => {resolve(value)})
+                    .catch(reason => {reject(reason)})
+            })
+        },
+        logout() {
+            let $this = this;
+            axios.post('/user', {})
+                .then(value => {
+                    this.user = null;
+                    router.push({name: 'auth'});
+                })
+                .catch(reason => {
+                    reject(reason)
+                })
+        }
+    },
 });

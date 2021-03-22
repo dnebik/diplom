@@ -1,7 +1,7 @@
 <template>
     <div class="auth">
         <h1>Авторизация</h1>
-        <form @submit.prevent="login()">
+        <form @submit.prevent="auth()">
             <InputBox v-model="login" label="Логин"/>
             <InputBox v-model="password" password label="Пароль"/>
             <InputCheckBox label="Запомнить меня" v-model="remember"/>
@@ -29,6 +29,11 @@ export default {
     computed: {
         validate() {
             return this.login.toString().length > 0 && this.password.toString().length > 0;
+        }
+    },
+    methods: {
+        auth() {
+            axios.post()
         }
     }
 }
