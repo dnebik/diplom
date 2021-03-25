@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import Navigation from "./content/helpers/Navigation";
+import Navigation from "./content/UI/Navigation";
 export default {
     name: "Header",
     components: {

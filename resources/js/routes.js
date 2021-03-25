@@ -50,8 +50,8 @@ const routes = [
         meta: {title: 'Мониторинг', guest: false},
     },
 
-    { path: '/non-existing', component: NonExisting, meta: {title: '404', guest: true} },
-    { path: '*', redirect: '/non-existing', meta: {guest: true}},
+    { path: '/non-existing', component: NonExisting, meta: {title: '404', guest: false} },
+    { path: '*', redirect: '/non-existing', meta: {guest: false}},
 ]
 
 export default new vueRouter({

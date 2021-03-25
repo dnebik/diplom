@@ -11,13 +11,14 @@ Vue.config.productionTip = false;
 
 
 Vue.component('top', require('./components/Header').default);
-Vue.component('navigate', require('./components/content/helpers/Navigation').default);
+Vue.component('navigate', require('./components/content/UI/Navigation').default);
 
 
 import router from "./routes";
 
 router.beforeEach(async (to, from, next) => {
     await Vue.nextTick();
+    console.log(to);
 
     if (router.app.user === null)
     {

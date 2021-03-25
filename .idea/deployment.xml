@@ -5,7 +5,7 @@
       <paths name="dneb.site">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/dneb/Documents/domains/diplom" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/Documents/domains/diplom" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
