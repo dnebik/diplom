@@ -2,7 +2,6 @@
     <div class="load-doc">
 
         <h1>Загрузка документа</h1>
-<!--        <input type="file" @change="fileInput($event.target.files[0])">-->
         <InputFile @change="fileInput"></InputFile>
         <button type="submit" class="btn primary">Загрузить</button>
 
@@ -79,6 +78,7 @@ export default {
         fileInput(file) {
             let $this = this;
             this.file = file;
+            this.error = [];
 
 
             if (file.type.search(/pdf/) > -1)
