@@ -48,14 +48,18 @@ export default {
     methods: {
         canvasShow(event) {
             let target = event.target;
+            let modal = this.$refs.modal;
+
+            let newCanvas;
+            let context;
+
             switch (target.tagName) {
                 case 'CANVAS':
-                    let modal = this.$refs.modal;
                     modal.innerHTML = '';
                     modal.classList.add('show');
 
-                    let newCanvas = document.createElement('canvas');
-                    let context = newCanvas.getContext('2d');
+                    newCanvas = document.createElement('canvas');
+                    context = newCanvas.getContext('2d');
 
                     newCanvas.width = target.width;
                     newCanvas.height = target.height;
@@ -64,14 +68,21 @@ export default {
 
                     modal.append(newCanvas);
                     document.body.classList.add('modal-show');
-                    break
+                    break;
+                case 'IMG':
+                    modal.innerHTML = '';
+                    modal.classList.add('show');
+
+                    modal.append(target.cloneNode());
+                    document.body.classList.add('modal-show');
+                    break;
                 case 'DIV':
                     if (target.classList.contains('modal')) {
                         let modal = this.$refs.modal;
                         modal.innerHTML = '';
                         modal.classList.remove('show');
                         document.body.classList.remove('modal-show');
-                        break
+                        break;
                     }
             }
         },
@@ -135,6 +146,20 @@ export default {
 
             } else if (file.type.search(/image/) > -1) {
 
+
+                setTimeout(() => {
+                    $this.$refs.pages.innerHTML = '';
+
+                    let reader = new FileReader();
+                    reader.onload = function(e) {
+                        let dom = document.createElement('img');
+                        dom.setAttribute('src', e.target.result);
+                        $this.$refs.pages.append(dom);
+                    }
+                    reader.readAsDataURL(this.file);
+
+                }, 1)
+
             } else {
                 this.error.push('Неподдерживаемый формат');
             }
@@ -175,7 +200,7 @@ $modalPadding: 10px
 $modalPadding: 10px
 
 .pages
-    canvas
+    canvas, img
         border: 1px solid #028F91
         max-width: 500px
         width: 100%
