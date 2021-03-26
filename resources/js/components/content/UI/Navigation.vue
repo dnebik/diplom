@@ -94,7 +94,7 @@ export default {
                 position: absolute
                 right: 15px
                 top: 12px
-                z-index: 1000
+                z-index: 2
 
     @media (min-width: 414px)
         .body
@@ -137,7 +137,7 @@ export default {
                 position: absolute
                 right: 8px
                 top: 7px
-                z-index: 1000
+                z-index: 2
                 path
                     fill: #48ACAD47
                 &:hover
