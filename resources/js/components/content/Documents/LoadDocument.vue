@@ -2,7 +2,8 @@
     <div class="load-doc">
 
         <h1>Загрузка документа</h1>
-        <input type="file" @change="fileInput($event.target.files[0])">
+<!--        <input type="file" @change="fileInput($event.target.files[0])">-->
+        <InputFile></InputFile>
         <button type="submit" class="btn primary">Загрузить</button>
 
 
@@ -26,7 +27,11 @@
 </template>
 
 <script>
+import InputFile from "../UI/InputFile";
 export default {
+    components: {
+        InputFile
+    },
     name: "LoadDocument",
     data() {
         return {
