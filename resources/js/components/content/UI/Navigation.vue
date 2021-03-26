@@ -79,6 +79,26 @@ export default {
             &:not(.router-link-exact-active)
                 color: #48ACAD
 
+            &.router-link-exact-active ~ svg path
+                fill: #ffffff
+            &:not(.router-link-exact-active) ~ svg path
+                fill: #48ACAD
+        .doc
+            position: relative
+            cursor: pointer
+            .add
+                width: 21px
+                height: 21px
+                position: absolute
+                right: 15px
+                top: 12px
+                z-index: 1000
+                //path
+                //    fill: #48ACAD47
+                //&:hover
+                //    path
+                //        fill: #48ACAD
+
     @media (min-width: 414px)
         .body
             padding-top: 6px
