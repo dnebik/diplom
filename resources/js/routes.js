@@ -10,12 +10,18 @@ import Requests from "./components/content/Documents/Requests";
 import History from "./components/content/Documents/History";
 import Search from "./components/content/Documents/Search";
 import NonExisting from "./components/content/NonExisting";
+import LoadDocument from "./components/content/Documents/LoadDocument";
 
 import Audio from "./components/content/Audio";
 
 import Monitoring from "./components/content/Monitoring";
 
 const routes = [
+    {
+        path: '',
+        redirect: {name: 'docs'}
+    },
+
     {
         path: '/documents',
         component: Documents,
@@ -26,6 +32,7 @@ const routes = [
             { path: 'requests', name: 'requests', meta: {title: 'Запросы'},component: Requests },
             { path: 'history', name: 'history', meta: {title: 'История'},component: History },
             { path: 'search', name: 'search', meta: {title: 'Поиск'},component: Search },
+            { path: 'load', name: 'load', meta: {title: 'Загрузка'},component: LoadDocument },
         ]
     },
 
