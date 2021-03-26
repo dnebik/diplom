@@ -3,7 +3,7 @@
 
         <h1>Загрузка документа</h1>
 <!--        <input type="file" @change="fileInput($event.target.files[0])">-->
-        <InputFile></InputFile>
+        <InputFile @change="fileInput"></InputFile>
         <button type="submit" class="btn primary">Загрузить</button>
 
 
