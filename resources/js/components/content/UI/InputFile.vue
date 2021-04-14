@@ -34,7 +34,6 @@ export default {
     },
     watch: {
         file(to) {
-            console.log(to)
             this.$emit('change', to);
             this.$refs.body.classList.add('clip');
 

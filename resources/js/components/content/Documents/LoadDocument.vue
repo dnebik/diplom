@@ -2,8 +2,10 @@
     <div class="load-doc">
 
         <h1>Загрузка документа</h1>
-        <InputFile @change="fileInput"></InputFile>
-        <button type="submit" class="btn primary">Загрузить</button>
+        <form @submit.prevent="send">
+            <InputFile @change="fileInput"></InputFile>
+            <button type="submit" class="btn primary">Загрузить</button>
+        </form>
 
 
         <div class="preview" v-if="file && error.length === 0">
@@ -46,6 +48,15 @@ export default {
         document.addEventListener('click', this.canvasShow)
     },
     methods: {
+        send(event) {
+            let file = new FormData();
+            file.append('file', this.file);
+            let req = axios.post('/docs/upload', file, {
+                onUploadProgress: progressEvent => {console.log(progressEvent)}
+            });
+            req.then(value => {});
+            req.catch(reason => {})
+        },
         canvasShow(event) {
             let target = event.target;
             let modal = this.$refs.modal;

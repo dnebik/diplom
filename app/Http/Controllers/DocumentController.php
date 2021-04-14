@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Document;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -21,14 +22,21 @@ class DocumentController extends Controller
         if (!$request->has('file'))
             return response('Нет файла', 400);
 
-//        $doc = new Document();
-//        $info = pathinfo($request->file('file')['name']);
-//        $ext = $info['extension'];
-//        $random = strtoupper(Str::random(10));
-//        $newname = $random.$ext;
-
         $path = $request->file('file')->store('files');
 
-        return response($path);
+//        $doc = new Document();
+//        $doc->login = Auth::user()->login;
+//        $doc->IP = $request->ip();
+//        $doc->Comment_file = $request->has('comment') ? $request->post('comment') : '';
+
+
+        return response();
+    }
+
+    public function file($name) {
+        if (Storage::disk('file')->exists($name))
+            return response()->file(storage_path('app/files/' . $name));
+        else
+            return redirect('non-exist');
     }
 }
