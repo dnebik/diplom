@@ -18,7 +18,6 @@ import router from "./routes";
 
 router.beforeEach(async (to, from, next) => {
     await Vue.nextTick();
-    console.log(to);
 
     if (router.app.user === null)
     {
