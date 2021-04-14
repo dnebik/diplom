@@ -3,7 +3,7 @@ window.Vue = require('vue');
 import Vue from 'vue'
 
 
-const DEFAULT_TITLE = 'Document Server';
+const DEFAULT_TITLE = 'DocumentController Server';
 
 
 Vue.config.devtools = false;

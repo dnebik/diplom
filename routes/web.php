@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,9 @@ use App\Http\Controllers\AuthController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::post('/docs/upload', [DocumentController::class, 'upload']);
+Route::any('/docs/', [DocumentController::class, 'index']);
 
 Route::post('/user', [AuthController::class, 'index']);
 Route::post('/user/login', [AuthController::class, 'login']);
