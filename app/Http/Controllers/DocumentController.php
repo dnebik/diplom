@@ -43,7 +43,7 @@ class DocumentController extends Controller
 
 
         if ($doc->save()) {
-            return response('Ok');
+            return response(['id' => $id_file]);
         } else {
             return response('Save error', 500);
         }

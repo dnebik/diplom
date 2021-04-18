@@ -4,9 +4,12 @@
         <h1>Загрузка документа</h1>
         <form @submit.prevent="send">
             <InputFile @change="fileInput"></InputFile>
-            <button type="submit" class="btn primary">Загрузить</button>
+            <label>
+                <p>Комментарий:</p>
+                <textarea cols="30" rows="10" v-model="comment"></textarea>
+            </label>
+            <button type="submit" :disabled="waiting" class="btn primary">Загрузить</button>
         </form>
-
 
         <div class="preview" v-if="file && error.length === 0">
             <DocumentOnlineViewing :file="file" title="Предпросмотр:"/>
@@ -34,19 +37,34 @@ export default {
             numPages: 0,
             thePDF: null,
 
+            waiting: false,
+
             file: null,
-            error: []
+            error: [],
+            comment: '',
         }
     },
     methods: {
         send(event) {
-            let file = new FormData();
-            file.append('file', this.file);
-            let req = axios.post('/docs/upload', file, {
+            this.waiting = true;
+
+
+            let data = new FormData();
+            data.append('file', this.file);
+            data.append('comment', this.comment);
+
+
+            let req = axios.post('/file/upload', data, {
                 onUploadProgress: progressEvent => {console.log(progressEvent)}
             });
-            req.then(value => {});
-            req.catch(reason => {})
+
+            req.then(value => {
+                this.$router.push({name: 'view', params: {id: value['data']['id']}});
+            });
+
+            req.catch(reason => {});
+
+            req.finally(() => {this.waiting = false});
         },
         fileInput(file) {
             this.file = file;
