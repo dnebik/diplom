@@ -16,8 +16,8 @@ class Document extends Model
     protected $table = "all_file";
     public $timestamps = false;
 
-    public function clear(): array
-    {
+
+    public function clear(): array{
         $arr = $this->toArray();
         unset ($arr['id']);
         unset ($arr['trec']);

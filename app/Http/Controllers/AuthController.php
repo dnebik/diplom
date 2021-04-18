@@ -11,22 +11,8 @@ use Illuminate\Support\Facades\Session;
 class AuthController
 {
     public function index() {
-        if (Auth::user()) return response($this->getUser());
+        if (Auth::user()) return response(User::getUser());
         else return response('Unauthorized', 401);
-    }
-
-    /**
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
-     */
-    public function getUser() {
-        $user = Auth::user();
-        unset($user['id']);
-        unset($user['login']);
-        unset($user['password']);
-        unset($user['unit']);
-        unset($user['status']);
-        unset($user['remember_token']);
-        return $user;
     }
 
     public function login(Request $request) {
@@ -44,7 +30,7 @@ class AuthController
                 return response('User has blocked', 401);
             }
             Auth::login($user, $request->post('remember'));
-            return response($this->getUser());
+            return response(User::getUser());
         }
         else return response('Unauthorized', 401);
     }
