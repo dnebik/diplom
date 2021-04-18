@@ -40,6 +40,9 @@ class AuthController
         ])->first();
 
         if (!is_null($user)){
+            if ($user->status == '0') {
+                return response('User has blocked', 401);
+            }
             Auth::login($user, $request->post('remember'));
             return response($this->getUser());
         }
