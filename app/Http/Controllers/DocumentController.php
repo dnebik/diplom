@@ -55,7 +55,7 @@ class DocumentController extends Controller
         $path = $doc['trec'];
         if (Storage::disk('local')->exists($path))
         {
-            return response()->file(storage_path('app/' . $doc->trec));
+            return response()->file(storage_path('app/' . $doc['trec']));
         }
         else
             return redirect('non-exist');
