@@ -1,9 +1,9 @@
 <template>
     <div class="document-container">
-        <Loading v-if="!isLoaded"/>
+        <Loading v-if="!(found && isLoaded) || (found && !fileLoaded)"/>
         <div class="not-found" v-if="!found && isLoaded">Документ не найден</div>
-        <div class="document-body" :style="{display: isLoaded && found ? 'flex' : 'none'}">
-            <DocumentOnlineViewing :file="file" />
+        <div class="document-body" :style="{display: fileLoaded ? 'flex' : 'none'}">
+            <DocumentOnlineViewing :file="file"/>
         </div>
     </div>
 </template>
@@ -20,6 +20,7 @@ export default {
     data() {
         return {
             isLoaded: false,
+            fileLoaded: false,
             found: false,
             file: null,
         }
@@ -30,16 +31,18 @@ export default {
         });
         req.then(value => {
             value = value['data'];
+            this.found = true;
             fetch(`/file/${value['id_avt']}`)
                 .then(res => res.blob()) // Gets the response and returns it as a blob
                 .then(blob => {
                     this.file = new File([blob], `file.${value['extension']}`,  { type: blob.type });
-                    console.log(this.file);
-                    this.found = true
+                    this.fileLoaded = true;
                 });
         });
         req.catch(reason => {});
-        req.finally(() => {this.isLoaded = true})
+        req.finally(() => {
+            this.isLoaded = true;
+        })
     }
 }
 </script>

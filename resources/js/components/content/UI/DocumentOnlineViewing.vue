@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Предпросмотр: </h2>
+        <h2 v-if="file !== null && title !== null">{{title}}</h2>
         <div>{{error.join(', ')}}</div>
         <div class="pages" ref="pages">
 
@@ -19,6 +19,10 @@ export default {
     props: {
         file: {
             required: true,
+        },
+        title: {
+            type: String,
+            default: null,
         }
     },
     watch: {

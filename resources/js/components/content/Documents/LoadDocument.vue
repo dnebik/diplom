@@ -9,7 +9,7 @@
 
 
         <div class="preview" v-if="file && error.length === 0">
-            <DocumentOnlineViewing :file="file"/>
+            <DocumentOnlineViewing :file="file" title="Предпросмотр:"/>
         </div>
 
         <div v-if="error.length > 0">
