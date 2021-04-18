@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     protected $table = "all_file";
+    public $timestamps = false;
 }

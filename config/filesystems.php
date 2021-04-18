@@ -50,7 +50,7 @@ return [
 
         'file' => [
             'driver' => 'local',
-            'root' => storage_path('app/files'),
+            'root' => storage_path('app/data'),
         ],
 
         'public' => [

@@ -22,20 +22,37 @@ class DocumentController extends Controller
         if (!$request->has('file'))
             return response('Нет файла', 400);
 
-        $path = $request->file('file')->store('files');
+        $date_path = "data/" . date('Y-m', time());
+        $path = $request->file('file')->store($date_path);
+        $id_file = strtoupper(Str::random(9));
+        $login = Auth::user()->login;
+        $ip = $request->ip();
+        $comment = $request->has('comment') ? $request->post('comment') : '';
 
-//        $doc = new Document();
-//        $doc->login = Auth::user()->login;
-//        $doc->IP = $request->ip();
-//        $doc->Comment_file = $request->has('comment') ? $request->post('comment') : '';
+
+        $doc = new Document();
+        $doc->id_avt = $id_file;
+        $doc->trec = $path;
+        $doc->login = $login;
+        $doc->IP = $ip;
+        $doc->Comment_file = $comment;
 
 
-        return response();
+        if ($doc->save()) {
+            return response('Ok');
+        } else {
+            return response('Save error', 500);
+        }
+
     }
 
     public function file($name) {
-        if (Storage::disk('file')->exists($name))
-            return response()->file(storage_path('app/files/' . $name));
+        $doc = Document::where('id_avt', 'like', $name)->first();
+        $path = $doc['trec'];
+        if (Storage::disk('local')->exists($path))
+        {
+            return response()->file(storage_path('app/' . $doc->trec));
+        }
         else
             return redirect('non-exist');
     }
