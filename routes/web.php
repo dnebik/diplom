@@ -17,7 +17,7 @@ use App\Http\Controllers\DocumentController;
 
 Route::post('/file/upload', [DocumentController::class, 'upload']);
 Route::get('/file/{name}', [DocumentController::class, 'file']);
-//Route::any('/docs/', [DocumentController::class, 'index']);
+Route::post('/docs', [DocumentController::class, 'index']);
 
 Route::post('/user', [AuthController::class, 'index']);
 Route::post('/user/login', [AuthController::class, 'login']);

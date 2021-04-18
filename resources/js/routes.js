@@ -11,6 +11,7 @@ import History from "./components/content/Documents/History";
 import Search from "./components/content/Documents/Search";
 import NonExisting from "./components/content/NonExisting";
 import LoadDocument from "./components/content/Documents/LoadDocument";
+import ViewDocument from "./components/content/Documents/ViewDocument";
 
 import Audio from "./components/content/Audio";
 
@@ -29,10 +30,11 @@ const routes = [
         children: [
             { path: '', redirect: {name: 'docs'} },
             { path: 'my_docs', name: 'docs', component: MyDocuments },
-            { path: 'requests', name: 'requests', meta: {title: 'Запросы'},component: Requests },
-            { path: 'history', name: 'history', meta: {title: 'История'},component: History },
-            { path: 'search', name: 'search', meta: {title: 'Поиск'},component: Search },
-            { path: 'load', name: 'load', meta: {title: 'Загрузка'},component: LoadDocument },
+            { path: 'requests', name: 'requests', meta: {title: 'Запросы'}, component: Requests },
+            { path: 'history', name: 'history', meta: {title: 'История'}, component: History },
+            { path: 'search', name: 'search', meta: {title: 'Поиск'}, component: Search },
+            { path: 'load', name: 'load', meta: {title: 'Загрузка'}, component: LoadDocument },
+            { path: 'view/:id', name: 'view', meta: {title: 'Просмотр'}, component: ViewDocument},
         ]
     },
 

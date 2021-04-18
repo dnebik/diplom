@@ -14,13 +14,17 @@ use Illuminate\Support\Str;
 class DocumentController extends Controller
 {
 
-    public function index() {
-        return response(Document::all());
+    public function index(Request $request) {
+        if (!$request->has('id')) return response('Bad request', 400);
+        $doc = Document::where(['id_avt' => $request->post('id')])->first();
+        if (is_null($doc))
+            return response('No such file');
+        return response($doc->clear());
     }
 
     public function upload(Request $request) {
         if (!$request->has('file'))
-            return response('Нет файла', 400);
+            return response('No such file', 404);
 
         $date_path = "data/" . date('Y-m', time());
         $path = $request->file('file')->store($date_path);
@@ -47,7 +51,7 @@ class DocumentController extends Controller
     }
 
     public function file($name) {
-        $doc = Document::where('id_avt', 'like', $name)->first();
+        $doc = Document::where('id_avt', '=', $name)->first();
         $path = $doc['trec'];
         if (Storage::disk('local')->exists($path))
         {
