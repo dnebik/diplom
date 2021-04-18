@@ -3,7 +3,7 @@
         <Loading v-if="!isLoaded"/>
         <div class="not-found" v-if="!found && isLoaded">Документ не найден</div>
         <div class="document-body" :style="{display: isLoaded && found ? 'flex' : 'none'}">
-            <h1>sadasd</h1>
+            <DocumentOnlineViewing :file="file" />
         </div>
     </div>
 </template>
@@ -21,13 +21,23 @@ export default {
         return {
             isLoaded: false,
             found: false,
+            file: null,
         }
     },
     mounted() {
         let req = axios.post('/docs', {
             id: this.$route.params.id,
         });
-        req.then(value => {this.found = true});
+        req.then(value => {
+            value = value['data'];
+            fetch(`/file/${value['id_avt']}`)
+                .then(res => res.blob()) // Gets the response and returns it as a blob
+                .then(blob => {
+                    this.file = new File([blob], `file.${value['extension']}`,  { type: blob.type });
+                    console.log(this.file);
+                    this.found = true
+                });
+        });
         req.catch(reason => {});
         req.finally(() => {this.isLoaded = true})
     }

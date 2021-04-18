@@ -18,7 +18,6 @@ export default {
     },
     props: {
         file: {
-            type: File,
             required: true,
         }
     },
@@ -77,6 +76,12 @@ export default {
             }
         },
         fileCheck() {
+            if (this.file == null) {
+                this.error.push(
+                    `Просмотр файла недоступен.`);
+                return;
+            }
+
             let $this = this;
             this.error = [];
 
@@ -151,7 +156,7 @@ export default {
 
             } else {
                 this.error.push(
-                    `Просмотр файла, формата ${this.file.name.split('.').pop()} ,не поддерживается`);
+                    `Просмотр файла, формата "${this.file.name.split('.').pop()}", не поддерживается`);
             }
         }
     }
