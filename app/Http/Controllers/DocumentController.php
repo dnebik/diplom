@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Document;
+use App\Providers\MyConst;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,16 +16,16 @@ class DocumentController extends Controller
 {
 
     public function index(Request $request) {
-        if (!$request->has('id')) return response('Bad request', 400);
+        if (!$request->has('id')) return response(['status' => MyConst::BAD_REQUEST]);
         $doc = Document::where(['id_avt' => $request->post('id')])->first();
         if (is_null($doc))
-            return response('No such file');
-        return response($doc->clear());
+            return response(['status' => MyConst::NO_SUCH_FILE]);
+        return response(['status' => MyConst::OK, 'document' => $doc->clear()]);
     }
 
     public function upload(Request $request) {
         if (!$request->has('file'))
-            return response('No such file', 404);
+            return response(['status' => MyConst::NO_SUCH_FILE]);
 
         $date_path = "data/" . date('Y-m', time());
         $path = $request->file('file')->store($date_path);
@@ -43,9 +44,9 @@ class DocumentController extends Controller
 
 
         if ($doc->save()) {
-            return response(['id' => $id_file]);
+            return response(['status' => MyConst::OK, 'id' => $id_file]);
         } else {
-            return response('Save error', 500);
+            return response(['status' => MyConst::SAVE_ERROR]);
         }
 
     }
