@@ -18,14 +18,15 @@ import router from "./routes";
 
 router.beforeEach(async (to, from, next) => {
     await Vue.nextTick();
-
     if (router.app.user === null)
     {
         await router.app.isAuthed()
             .then(value => {
                 router.app.user = value;
             })
-            .catch(reason => {router.app.user = null})
+            .catch(reason => {
+                router.app.user = null;
+            })
     }
 
     if (router.app.user !== null)
@@ -71,12 +72,14 @@ const app = new Vue({
                 axios.post('/user', {})
                     .then(value => {
                         if (value['data']['status']['code'] == 0) {
-                            resolve(value)
+                            resolve(value['data']['user'])
                         } else {
                             reject(value['data']['status']['text'])
                         }
                     })
-                    .catch(reason => {reject(reason)})
+                    .catch(reason => {
+                        reject(reason)
+                    })
             })
         },
         logout() {
