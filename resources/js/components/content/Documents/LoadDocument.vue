@@ -59,7 +59,11 @@ export default {
             });
 
             req.then(value => {
-                this.$router.push({name: 'view', params: {id: value['data']['id']}});
+                if (value['data']['status']['code'] == 0) {
+                    this.$router.push({name: 'view', params: {id: value['data']['id']}});
+                } else {
+                    /* TODO Error */
+                }
             });
 
             req.catch(reason => {});

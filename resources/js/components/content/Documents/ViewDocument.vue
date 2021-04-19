@@ -30,14 +30,18 @@ export default {
             id: this.$route.params.id,
         });
         req.then(value => {
-            value = value['data'];
-            this.found = true;
-            fetch(`/file/${value['id_avt']}`)
-                .then(res => res.blob()) // Gets the response and returns it as a blob
-                .then(blob => {
-                    this.file = new File([blob], `file.${value['extension']}`,  { type: blob.type });
-                    this.fileLoaded = true;
-                });
+            if (value['data']['status']['code'] == 0) {
+                value = value['data']['document'];
+                this.found = true;
+                fetch(`/file/${value['id_avt']}`)
+                    .then(res => res.blob()) // Gets the response and returns it as a blob
+                    .then(blob => {
+                        this.file = new File([blob], `file.${value['extension']}`,  { type: blob.type });
+                        this.fileLoaded = true;
+                    });
+            } else {
+                /* TODO Error */
+            }
         });
         req.catch(reason => {});
         req.finally(() => {
