@@ -74,6 +74,11 @@ export default {
                 grid-template-rows: 1fr
                 gap: 0 0
                 grid-template-areas: "comment status id"
+                & > *
+                    overflow: hidden
+                    text-overflow: ellipsis
+                    white-space: nowrap
+                    padding: 0 2px
                 .comment
                     grid-area: comment
                 .status
