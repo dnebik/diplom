@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 class AuthController
 {
     public function index() {
-        if (Auth::user()) return response(User::getUser());
+        if (Auth::user()) return response(['status' => MyConst::OK, 'user' => User::getUser()]);
         else return response(['status' => MyConst::UNAUTHORIZED]);
     }
 
