@@ -69,19 +69,29 @@ const app = new Vue({
         isAuthed() {
             return new Promise((resolve, reject) => {
                 axios.post('/user', {})
-                    .then(value => {resolve(value)})
+                    .then(value => {
+                        if (value['data']['status']['code'] == 0) {
+                            resolve(value)
+                        } else {
+                            reject(value['data']['status']['text'])
+                        }
+                    })
                     .catch(reason => {reject(reason)})
             })
         },
         logout() {
-            axios.post('/user/logout', {})
-                .then(value => {
+            let req = axios.post('/user/logout');
+            req.then(value => {
+                if (value['data']['status']['code'] == 0) {
                     app.user = null;
                     router.push({name: 'auth'});
-                })
-                .catch(reason => {
-                    reject(reason)
-                })
+                } else {
+                    return(value['data']['status']['text']);
+                }
+            });
+            req.catch(reason => {
+                return(reason)
+            });
         }
     },
 });

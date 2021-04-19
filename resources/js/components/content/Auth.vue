@@ -1,11 +1,12 @@
 <template>
     <div class="auth">
         <h1>Авторизация</h1>
+        <InfoBox class="warning" v-if="warning" text="Неверный логин или пароль." type="danger" />
         <form @submit.prevent="auth()">
             <InputBox v-model="login" label="Логин"/>
             <InputBox v-model="password" password label="Пароль"/>
             <InputCheckBox label="Запомнить меня" v-model="remember"/>
-            <button :disabled="!validate" class="btn submit" type="submit">Войти</button>
+            <button :disabled="!validate || waiting" class="btn submit" type="submit">Войти</button>
         </form>
     </div>
 </template>
@@ -13,17 +14,22 @@
 <script>
 import InputBox from "./UI/InputBox";
 import InputCheckBox from "./UI/InputCheckBox";
+import InfoBox from "./UI/InfoBox";
+import router from "../../routes";
 export default {
     name: "Auth",
     components: {
         InputBox,
         InputCheckBox,
+        InfoBox,
     },
     data() {
         return {
             login: 'login',
             password: 'password',
-            remember: true
+            remember: true,
+            waiting: false,
+            warning: false,
         }
     },
     computed: {
@@ -33,6 +39,9 @@ export default {
     },
     methods: {
         auth() {
+            this.warning = false;
+            this.waiting = true;
+
             let req = axios.post('/user/login',{
                 login: this.login,
                 password: this.password,
@@ -40,9 +49,20 @@ export default {
             })
 
             req.then(value => {
-                this.$root.$data.user = value;
-                this.$router.push({name: 'docs'});
+                if (value['data']['status']['code'] == 0) {
+                    this.$root.$data.user = value['data']['user'];
+                    this.$router.push({name: 'docs'});
+                } else {
+                    this.warning = true;
+                    this.password = '';
+                }
             })
+
+            req.catch(reason => {
+                console.log(reason);
+            })
+
+            req.finally(() => {this.waiting = false})
         }
     }
 }
@@ -50,6 +70,7 @@ export default {
 
 <style scoped lang="sass">
     .auth
+        position: relative
         padding-top: 80px
         width: max-content
         margin: 0 auto
@@ -61,4 +82,7 @@ export default {
         .btn
             float: right
             margin-top: 15px
+        .warning
+            position: absolute
+            top: -5px
 </style>
