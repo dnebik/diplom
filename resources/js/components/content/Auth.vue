@@ -23,6 +23,9 @@ export default {
         InputCheckBox,
         InfoBox,
     },
+    props: {
+        redirect: null
+    },
     data() {
         return {
             login: 'login',
@@ -51,7 +54,8 @@ export default {
             req.then(value => {
                 if (value['data']['status']['code'] == 0) {
                     this.$root.$data.user = value['data']['user'];
-                    this.$router.push({name: 'docs'});
+                    if (this.redirect === null) this.$router.push({name: 'docs'});
+                    else this.$router.push(this.redirect);
                 } else {
                     this.warning = true;
                     this.password = '';

@@ -43,6 +43,7 @@ const routes = [
         name: 'auth',
         component: Auth,
         meta: {title: 'Вход', guest: true},
+        props: true,
     },
 
     {

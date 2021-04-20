@@ -44,7 +44,13 @@ router.beforeEach(async (to, from, next) => {
         else next();
     }
     else if (to['meta']['guest']) next();
-    else next({ name: 'auth' });
+    else {
+        console.log(to);
+        if (to !== null)
+            next({ name: 'auth', params: {redirect: to} });
+        else
+            next({ name: 'auth' });
+    }
 })
 
 const app = new Vue({
