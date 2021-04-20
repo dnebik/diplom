@@ -64,13 +64,6 @@ class DocumentController extends Controller
             return redirect('non-exist');
     }
 
-//    public function addView($id, $ip) {
-//        $user = Auth::user();
-//        if (is_null($user))
-//            return response(['status' => MyConst::UNAUTHORIZED]);
-//
-//    }
-
     public function getHistory() {
         $user = Auth::user();
 
