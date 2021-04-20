@@ -54,8 +54,11 @@ export default {
             req.then(value => {
                 if (value['data']['status']['code'] == 0) {
                     this.$root.$data.user = value['data']['user'];
-                    if (this.redirect === null) this.$router.push({name: 'docs'});
-                    else this.$router.push(this.redirect);
+                    if (this.redirect === null || typeof this.redirect === "undefined") this.$router.push({name: 'docs'});
+                    else {
+                        console.log(this.redirect);
+                        this.$router.push(this.redirect);
+                    }
                 } else {
                     this.warning = true;
                     this.password = '';
