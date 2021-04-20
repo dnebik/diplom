@@ -21,7 +21,7 @@ class DocumentController extends Controller
         $doc = Document::where(['id_avt' => $request->post('id')])->first();
         if (is_null($doc))
             return response(['status' => MyConst::NO_SUCH_FILE]);
-        self::addView($doc->id_avt, $request->ip());
+        $doc->addView($request->ip());
         return response(['status' => MyConst::OK, 'document' => $doc->clear()]);
     }
 
@@ -64,34 +64,12 @@ class DocumentController extends Controller
             return redirect('non-exist');
     }
 
-    public function addView($id, $ip) {
-        $user = Auth::user();
-
-        if (is_null($user))
-            return response(['status' => MyConst::UNAUTHORIZED]);
-
-        $request = ViewsWeb::where(['login' => $user->login, 'id_request' => $id])->first();
-        if (is_null($request)) {
-            $new_request = new ViewsWeb();
-            $new_request->login = $user->login;
-            $new_request->id_request = $id;
-            $new_request->counter = 1;
-            $new_request->IP = $ip;
-            if ($new_request->save()) return true;
-            else return false;
-        } else {
-            date_default_timezone_set('Europe/Moscow');
-            $time_from_base = strtotime($request->DateTimeSearch);
-            $time = time();
-
-            $count = (int)$request->counter;
-            if ($time - $time_from_base > 600) $count++;
-
-            $request = ViewsWeb::where(['login' => $user->login, 'id_request' => $id])->limit(1);
-            if ($request->update(['counter' => $count, 'DateTimeSearch' => date('c', time()), 'IP' => $ip])) return true;
-            else return false;
-        }
-    }
+//    public function addView($id, $ip) {
+//        $user = Auth::user();
+//        if (is_null($user))
+//            return response(['status' => MyConst::UNAUTHORIZED]);
+//
+//    }
 
     public function getHistory() {
         $user = Auth::user();
@@ -99,6 +77,8 @@ class DocumentController extends Controller
         if (is_null($user))
             return response(['status' => MyConst::UNAUTHORIZED]);
 
-        return response( ViewsWeb::where(['login' => $user->login])->get() );
+        $views = ViewsWeb::where(['login' => $user->login])->get();
+
+        return response(  );
     }
 }
