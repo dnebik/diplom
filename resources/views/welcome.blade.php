@@ -15,6 +15,7 @@
     <top> </top>
     <div class="container-wrapper">
         <div class="container">
+            <loading v-if="!loaded" class="main-loading"></loading>
             <router-view></router-view>
         </div>
     </div>

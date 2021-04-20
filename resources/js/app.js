@@ -12,6 +12,7 @@ Vue.config.productionTip = false;
 
 Vue.component('top', require('./components/Header').default);
 Vue.component('navigate', require('./components/content/UI/Navigation').default);
+Vue.component('loading', require('./components/content/UI/Loading').default);
 
 
 import router from "./routes";
@@ -20,12 +21,16 @@ router.beforeEach(async (to, from, next) => {
     await Vue.nextTick();
     if (router.app.user === null)
     {
+        router.app.loaded = false;
         await router.app.isAuthed()
             .then(value => {
                 router.app.user = value;
             })
             .catch(reason => {
                 router.app.user = null;
+            })
+            .finally(() => {
+                router.app.loaded = true;
             })
     }
 
@@ -49,6 +54,7 @@ const app = new Vue({
         return {
             path: window.location.origin,
             user: null,
+            loaded: true,
         }
     },
     watch: {
