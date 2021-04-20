@@ -45,7 +45,6 @@ router.beforeEach(async (to, from, next) => {
     }
     else if (to['meta']['guest']) next();
     else {
-        console.log(to);
         if (to !== null)
             next({ name: 'auth', params: {redirect: to} });
         else
