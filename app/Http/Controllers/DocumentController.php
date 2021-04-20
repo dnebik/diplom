@@ -10,6 +10,7 @@ use App\User;
 use App\ViewsWeb;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -70,8 +71,21 @@ class DocumentController extends Controller
         if (is_null($user))
             return response(['status' => MyConst::UNAUTHORIZED]);
 
-        $views = ViewsWeb::where(['login' => $user->login])->get();
+        $views = DB::table('request_web')
+            ->leftJoin('peer_review', 'request_web.id_request', '=', 'peer_review.id_request')
+            ->join('all_file', 'request_web.id_request', '=', 'all_file.id_avt')
+            ->join('users', 'users.login', '=', 'all_file.login')
+            ->select(
+                'all_file.id_avt as id',
+                'users.FIO as fio',
+                'users.sFIO as sfio',
+                'all_file.DateTimeUpld as date',
+                'all_file.Comment_file as comment',
+                'peer_review.essence'
+            )
+            ->get();
 
-        return response(  );
+
+        return response( $views );
     }
 }
