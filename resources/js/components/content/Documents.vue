@@ -20,6 +20,7 @@ export default {
 
 .nv-desctop
     margin-right: 63px
+    min-width: 250px
     @media (max-width: 414px)
         display: none
 

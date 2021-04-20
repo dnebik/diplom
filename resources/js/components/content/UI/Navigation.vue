@@ -101,7 +101,7 @@ export default {
             padding-top: 6px
             padding-bottom: 6px
             max-width: 250px
-            width: 100%
+            width: max-content
 
         a:not(.add-link)
             font-size: 18px
@@ -135,7 +135,7 @@ export default {
                 width: 20px
                 height: 20px
                 position: absolute
-                right: 8px
+                left: 130px
                 top: 7px
                 z-index: 2
                 path
