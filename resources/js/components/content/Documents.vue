@@ -84,12 +84,29 @@ export default {
         filtSet() {
             this.filter = {}
             this.filter['like'] = this.like !== null || this.like > 0 ? this.like : null;
-            console.log(this.range);
             if (this.range !== null)
+            {
+                let start = this.range.start;
+                start = new Date(
+                    +start.getFullYear(),
+                    +start.getMonth(),
+                    +start.getDate() + 1
+                );
+                let end = this.range.end;
+                end = new Date(
+                    +end.getFullYear(),
+                    +end.getMonth(),
+                    +end.getDate() + 1,
+                    23,
+                    59,
+                    59,
+                    999
+                );
                 this.filter['range'] = {
-                    start: this.range.start.getTime(),
-                    end: this.range.end.getTime()
+                    start: start.getTime(),
+                    end: end.getTime()
                 }
+            }
             else this.filter['range'] = null;
         },
         formUpdate() {
