@@ -1,5 +1,7 @@
 <template>
     <div>
+        <InfoBox v-if="list.length < 1 && !waiting" type="danger" text="Ничего не нашлось"/>
+        <Loading v-if="waiting"/>
         <ListItem v-for="(item, index) in list"
                   :key="index"
                   :id="item['id']"
@@ -12,15 +14,35 @@
 </template>
 
 <script>
+import Loading from "../UI/Loading";
+import InfoBox from "../UI/InfoBox";
 import ListItem from "../UI/ListItem";
 export default {
     name: "History",
     components: {
         ListItem,
+        InfoBox,
+        Loading,
+    },
+    props: {
+        filter: {
+            type: Object,
+            default: {
+                like: null,
+                range: null
+            }
+        },
     },
     data() {
         return {
             list: [],
+            waiting: false,
+        }
+    },
+    watch: {
+        filter() {
+            console.log('load')
+            this.load();
         }
     },
     mounted() {
@@ -28,9 +50,11 @@ export default {
     },
     methods: {
         load() {
-            let req = axios.post('/docs/history');
+            this.waiting = true;
+            let req = axios.post('/docs/history', this.filter);
             req.then(value => {this.list = value['data']})
             req.catch(() => {})
+            req.finally(() => {this.waiting = false});
         },
         dateParse(date) {
             date = new Date(Date.parse(date));

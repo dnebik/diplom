@@ -65,7 +65,7 @@ class DocumentController extends Controller
             return redirect('non-exist');
     }
 
-    public function getHistory() {
+    public function getHistory(Request $request) {
         $user = Auth::user();
 
         if (is_null($user))
@@ -75,6 +75,7 @@ class DocumentController extends Controller
             ->leftJoin('peer_review', 'request_web.id_request', '=', 'peer_review.id_request')
             ->join('all_file', 'request_web.id_request', '=', 'all_file.id_avt')
             ->join('users', 'users.login', '=', 'all_file.login')
+            ->orderBy('request_web.DateTimeSearch', 'desc')
             ->select(
                 'all_file.id_avt as id',
                 'users.FIO as fio',
@@ -82,10 +83,42 @@ class DocumentController extends Controller
                 'all_file.DateTimeUpld as date',
                 'all_file.Comment_file as comment',
                 'peer_review.essence'
-            )
-            ->get();
+            );
+
+        if ($request->has('range') && $request->post('range') != null)
+        {
+            $start = (int)round((int)$request->post('range')['start'] / 1000);
+            $end = (int)round((int)$request->post('range')['end'] / 1000);
+            $start = date('Y-m-d', $start);
+            $end = date('Y-m-d', $end);
+//            echo "<pre>";
+//            var_dump($start);
+//            echo "</pre>";
+//            die();
+            $views->whereBetween('all_file.DateTimeUpld', [$start, $end]);
+//            $views->where('all_file.DateTimeUpld', '<=' , $end);
+        }
+
+        $views->where(function ($query) use ($request) {
+            $query->where('users.FIO', 'LIKE', '%' . $request->post('like') . '%')
+                ->orWhere('users.sFIO', 'LIKE', '%' . $request->post('like') . '%')
+                ->orWhere('all_file.id_avt', 'LIKE', '%' . $request->post('like') . '%')
+                ->orWhere('all_file.Comment_file', 'LIKE', '%' . $request->post('like') . '%')
+                ->orWhere('peer_review.essence', 'LIKE', '%' . $request->post('like') . '%');
+        });
+
+//        $views->where('users.FIO', 'LIKE', '%' . $request->post('like') . '%')
+//            ->orWhere('users.sFIO', 'LIKE', '%' . $request->post('like') . '%')
+//            ->orWhere('all_file.id_avt', 'LIKE', '%' . $request->post('like') . '%')
+//            ->orWhere('all_file.Comment_file', 'LIKE', '%' . $request->post('like') . '%')
+//            ->orWhere('peer_review.essence', 'LIKE', '%' . $request->post('like') . '%');
+
+//        echo "<pre>";
+//        var_dump($views->toSql());
+//        echo "</pre>";
+//        die();
 
 
-        return response( $views );
+        return response( $views->get() );
     }
 }
