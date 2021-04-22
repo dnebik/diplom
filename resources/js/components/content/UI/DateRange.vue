@@ -14,11 +14,11 @@ export default {
     },
     data() {
         return {
-            value: null,
+            range: null,
         }
     },
     props: {
-        range: null,
+        value: null,
     },
     watch: {
         range(value) {

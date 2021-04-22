@@ -8,6 +8,7 @@ use App\Document;
 use App\Providers\MyConst;
 use App\User;
 use App\ViewsWeb;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -67,16 +68,59 @@ class DocumentController extends Controller
 
     public function getHistory(Request $request) {
         $user = Auth::user();
-
-        if (is_null($user))
-            return response(['status' => MyConst::UNAUTHORIZED]);
+        if (is_null($user)) return response(['status' => MyConst::UNAUTHORIZED]);
 
         $views = DB::table('request_web')
             ->leftJoin('peer_review', 'request_web.id_request', '=', 'peer_review.id_request')
             ->join('all_file', 'request_web.id_request', '=', 'all_file.id_avt')
             ->join('users', 'users.login', '=', 'all_file.login')
-            ->orderBy('request_web.DateTimeSearch', 'desc')
-            ->select(
+            ->orderBy('request_web.DateTimeSearch', 'desc');
+
+        $views = self::select($views);
+        $views = self::filter($views, $request->post('range'), $request->post('like'));
+
+        return response( $views->get() );
+    }
+
+    public function getMyDocs(Request $request) {
+        $user = Auth::user();
+        if (is_null($user)) return response(['status' => MyConst::UNAUTHORIZED]);
+
+        $views = DB::table('all_file')
+            ->leftJoin('peer_review', 'all_file.id_avt', '=', 'peer_review.id_request')
+            ->join('users', 'users.login', '=', 'all_file.login')
+            ->orderBy('all_file.DateTimeUpld', 'desc');
+
+        $views->where('users.login', '=', $user->login);
+        $views = self::select($views);
+        $views = self::filter($views, $request->post('range'), $request->post('like'));
+
+        return response( $views->get() );
+    }
+
+    public function filter($query, $range, $like) : Builder {
+        if ($range != null)
+        {
+            $start = (int)round((int)$range['start'] / 1000);
+            $end = (int)round((int)$range['end'] / 1000);
+            $start = date('Y-m-d', $start);
+            $end = date('Y-m-d', $end);
+            $query->whereBetween('all_file.DateTimeUpld', [$start, $end]);
+        }
+
+        $query->where(function ($query) use ($like) {
+            $query->where('users.FIO', 'LIKE', '%' . $like . '%')
+                ->orWhere('users.sFIO', 'LIKE', '%' . $like . '%')
+                ->orWhere('all_file.id_avt', 'LIKE', '%' . $like . '%')
+                ->orWhere('all_file.Comment_file', 'LIKE', '%' . $like . '%')
+                ->orWhere('peer_review.essence', 'LIKE', '%' . $like . '%');
+        });
+
+        return $query;
+    }
+
+    public function select($query): Builder {
+        return $query->select(
                 'all_file.id_avt as id',
                 'users.FIO as fio',
                 'users.sFIO as sfio',
@@ -84,24 +128,5 @@ class DocumentController extends Controller
                 'all_file.Comment_file as comment',
                 'peer_review.essence'
             );
-
-        if ($request->has('range') && $request->post('range') != null)
-        {
-            $start = (int)round((int)$request->post('range')['start'] / 1000);
-            $end = (int)round((int)$request->post('range')['end'] / 1000);
-            $start = date('Y-m-d', $start);
-            $end = date('Y-m-d', $end);
-            $views->whereBetween('all_file.DateTimeUpld', [$start, $end]);
-        }
-
-        $views->where(function ($query) use ($request) {
-            $query->where('users.FIO', 'LIKE', '%' . $request->post('like') . '%')
-                ->orWhere('users.sFIO', 'LIKE', '%' . $request->post('like') . '%')
-                ->orWhere('all_file.id_avt', 'LIKE', '%' . $request->post('like') . '%')
-                ->orWhere('all_file.Comment_file', 'LIKE', '%' . $request->post('like') . '%')
-                ->orWhere('peer_review.essence', 'LIKE', '%' . $request->post('like') . '%');
-        });
-
-        return response( $views->get() );
     }
 }
