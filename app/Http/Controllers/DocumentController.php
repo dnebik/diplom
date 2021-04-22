@@ -56,13 +56,13 @@ class DocumentController extends Controller
 
     public function file($name) {
         $doc = Document::where('id_avt', '=', $name)->first();
-        $path = $doc['trec'];
-        if (Storage::disk('local')->exists($path))
+        if ($doc !== null)
         {
-            return response()->file(storage_path('app/' . $doc['trec']));
+            $path = $doc['trec'];
+            if (Storage::disk('local')->exists($path))
+                return response()->file(storage_path('app/' . $doc['trec']));
         }
-        else
-            return redirect('non-exist');
+        return response('Not found', 404);
     }
 
     public function getHistory(Request $request) {
