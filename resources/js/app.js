@@ -2,6 +2,10 @@ require('./bootstrap');
 window.Vue = require('vue');
 import Vue from 'vue'
 
+import VCalendar from 'v-calendar';
+Vue.use(VCalendar, {
+    componentPrefix: 'v',
+});
 
 const DEFAULT_TITLE = 'DocumentController Server';
 

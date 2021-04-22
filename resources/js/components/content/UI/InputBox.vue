@@ -122,14 +122,14 @@ export default {
                 z-index: 10
 
         &.notEmpty
-            border: 2px solid #48ACAD
+            border: 1px solid #48ACAD
             span
                 top: -10px
                 color: #48ACAD
             input
                 color: #1D5F60
         &:not(.notEmpty)
-            border: 2px solid #D2D2D2
+            border: 1px solid #D2D2D2
             span
                 color: #D2D2D2
             input

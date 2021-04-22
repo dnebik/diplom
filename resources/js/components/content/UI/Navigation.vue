@@ -104,7 +104,8 @@ export default {
             width: max-content
 
         a:not(.add-link)
-            font-size: 18px
+            font-size: 22px
+            padding: 2px 0
             height: 32px
             width: 100%
             justify-content: left
@@ -121,7 +122,7 @@ export default {
                 width: 100%
                 height: 2px
                 position: absolute
-                bottom: -2px
+                bottom: -4px
 
             &:not(.router-link-exact-active) .name
                 color: #48ACAD47
@@ -132,11 +133,11 @@ export default {
             position: relative
             cursor: pointer
             .add
-                width: 20px
-                height: 20px
+                width: 23px
+                height: 23px
                 position: absolute
-                left: 130px
-                top: 7px
+                left: 160px
+                top: 8px
                 z-index: 2
                 path
                     fill: #48ACAD47

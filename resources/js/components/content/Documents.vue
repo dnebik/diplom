@@ -2,14 +2,25 @@
     <div class="flex-body">
         <div class="nv-desctop">
             <navigate></navigate>
+            <div style="margin-top: 50px">
+                <h3>Фильтр:</h3>
+                <InputBox label="Найти"/>
+                <DateRange/>
+            </div>
         </div>
         <router-view></router-view>
     </div>
 </template>
 
 <script>
+import DateRange from "./UI/DateRange";
+import InputBox from "./UI/InputBox";
 export default {
-    name: "Documents"
+    name: "Documents",
+    components: {
+        DateRange,
+        InputBox
+    }
 }
 </script>
 
