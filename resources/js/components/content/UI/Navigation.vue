@@ -136,7 +136,7 @@ export default {
                 width: 23px
                 height: 23px
                 position: absolute
-                left: 160px
+                left: 170px
                 top: 8px
                 z-index: 2
                 path

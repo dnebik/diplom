@@ -2,11 +2,35 @@
     <div class="flex-body">
         <div class="nv-desctop">
             <navigate></navigate>
-            <div style="margin-top: 50px">
-                <h3>Фильтр:</h3>
+
+            <div v-if="$route.name === 'history'" style="margin-top: 50px">
+                <h2>Фильтр:</h2>
                 <InputBox label="Найти"/>
                 <DateRange/>
             </div>
+            <div v-if="$route.name === 'search'" style="margin-top: 50px">
+                <h2>Фильтр:</h2>
+                <InputBox label="Найти"/>
+                <DateRange/>
+            </div>
+            <div v-if="$route.name === 'requests'" style="margin-top: 50px">
+                <h2>Фильтр:</h2>
+                <InputBox label="Найти"/>
+                <select>
+                    <option value="">Все</option>
+                    <option value="">Решен</option>
+                    <option value="">Просмотрен</option>
+                    <option value="">Новый</option>
+                </select>
+                <DateRange/>
+            </div>
+            <div v-if="$route.name === 'docs'" style="margin-top: 50px">
+                <h2>Фильтр:</h2>
+                <InputBox label="Найти"/>
+                <DateRange/>
+            </div>
+
+
         </div>
         <router-view></router-view>
     </div>
@@ -20,6 +44,9 @@ export default {
     components: {
         DateRange,
         InputBox
+    },
+    mounted() {
+        console.log(this.$route);
     }
 }
 </script>

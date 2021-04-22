@@ -7,7 +7,7 @@ Vue.use(VCalendar, {
     componentPrefix: 'v',
 });
 
-const DEFAULT_TITLE = 'DocumentController Server';
+const DEFAULT_TITLE = 'Document Server';
 
 
 Vue.config.devtools = false;
