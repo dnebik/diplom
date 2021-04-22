@@ -32,6 +32,7 @@ export default {
             width: max-content
             h1
                 font-size: 102px
+                color: #6bb5b5
                 margin: 0
             p
                 font-size: 20px
