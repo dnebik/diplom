@@ -63,7 +63,7 @@ class DocumentController extends Controller
             return response()->file(storage_path('app/' . $doc['trec']));
         }
         else
-            return redirect('non-exist');
+            return redirect('not found', 404);
     }
 
     public function getHistory(Request $request) {
