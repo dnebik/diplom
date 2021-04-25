@@ -5,7 +5,7 @@
 
             <div v-if="$route.name === 'history'" style="margin-top: 50px">
                 <h2>Фильтр:</h2>
-                <form @submit.prevent="filtSet">
+                <form @submit.prevent="filtSet" autocomplete="off">
                     <InputBox v-model="like" label="Найти"/>
                     <DateRange v-model="range"/>
                     <button class="btn submit" type="submit">Подтвердить</button>
@@ -18,18 +18,24 @@
             </div>
             <div v-if="$route.name === 'requests'" style="margin-top: 50px">
                 <h2>Фильтр:</h2>
-                <InputBox label="Найти"/>
-                <select>
-                    <option value="">Все</option>
-                    <option value="">Решен</option>
-                    <option value="">Просмотрен</option>
-                    <option value="">Новый</option>
-                </select>
-                <DateRange/>
+                <form @submit.prevent="filtSet" autocomplete="off">
+                    <InputBox v-model="like" label="Найти"/>
+                    <label class="select-label">
+                        <p>Статус: </p>
+                        <select v-model="status">
+                            <option value="0">Все</option>
+                            <option value="1">Новый</option>
+                            <option value="3">Решен</option>
+                            <option value="2">Просмотрен</option>
+                        </select>
+                    </label>
+                    <DateRange v-model="range"/>
+                    <button class="btn submit" type="submit">Подтвердить</button>
+                </form>
             </div>
             <div v-if="$route.name === 'docs'" style="margin-top: 50px">
                 <h2>Фильтр:</h2>
-                <form @submit.prevent="filtSet">
+                <form @submit.prevent="filtSet" autocomplete="off">
                     <InputBox v-model="like" label="Найти"/>
                     <DateRange v-model="range"/>
                     <button class="btn submit" type="submit">Подтвердить</button>
@@ -57,10 +63,12 @@ export default {
         return {
             like: '',
             range: null,
+            status: 0,
 
             filter: {
                 like: null,
-                range: null
+                range: null,
+                status: 0,
             },
         }
     },
@@ -70,14 +78,16 @@ export default {
     methods: {
         filtSet(event) {
             this.filter = {}
-            this.filter['like'] = this.like.length > 0 ? this.like : null;
+            this.$set(this.filter, 'like', this.like.length > 0 ? this.like : null);
+            this.$set(this.filter, 'status', this.status);
             if (this.range !== null)
-                this.filter['range'] = {
+                this.$set(this.filter, 'range', {
                     start: this.range.start.getTime(),
                     end: this.range.end.getTime()
-                }
-            else this.filter['range'] = null;
-        }
+                });
+            else this.$set(this.filter, 'range', null);
+
+        },
     }
 }
 </script>
