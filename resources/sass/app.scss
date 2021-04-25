@@ -52,6 +52,13 @@ select {
     background-position-x: calc(100% - 11px);
     background-position-y: 15px;
 }
+label.select-label {
+    p {
+        margin: 0 0 5px 2px;
+        color: #2d3748;
+        font-size: 18px;
+    }
+}
 
 
 
