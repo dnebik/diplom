@@ -13,8 +13,11 @@
             </div>
             <div v-if="$route.name === 'search'" style="margin-top: 50px">
                 <h2>Фильтр:</h2>
-                <InputBox label="Найти"/>
-                <DateRange/>
+                <form @submit.prevent="filtSet" autocomplete="off">
+                    <InputBox v-model="like" label="Найти"/>
+                    <DateRange v-model="range"/>
+                    <button class="btn submit" type="submit">Подтвердить</button>
+                </form>
             </div>
             <div v-if="$route.name === 'requests'" style="margin-top: 50px">
                 <h2>Фильтр:</h2>
@@ -80,11 +83,29 @@ export default {
             this.filter = {}
             this.$set(this.filter, 'like', this.like.length > 0 ? this.like : null);
             this.$set(this.filter, 'status', this.status);
-            if (this.range !== null)
+            if (this.range !== null) {
+                let start = this.range.start;
+                start = new Date(
+                    +start.getFullYear(),
+                    +start.getMonth(),
+                    +start.getDate() + 1
+                );
+                let end = this.range.end;
+                end = new Date(
+                    +end.getFullYear(),
+                    +end.getMonth(),
+                    +end.getDate() + 1,
+                    23,
+                    59,
+                    59,
+                    999
+                );
+
                 this.$set(this.filter, 'range', {
-                    start: this.range.start.getTime(),
-                    end: this.range.end.getTime()
+                    start: start.getTime(),
+                    end: end.getTime()
                 });
+            }
             else this.$set(this.filter, 'range', null);
 
         },
