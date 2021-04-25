@@ -3,48 +3,49 @@
         <div class="nv-desctop">
             <navigate></navigate>
 
-            <div v-if="$route.name === 'history'" style="margin-top: 50px">
-                <h2>Фильтр:</h2>
-                <form @submit.prevent="filtSet" autocomplete="off">
-                    <InputBox v-model="like" label="Найти"/>
-                    <DateRange v-model="range"/>
-                    <button class="btn submit" type="submit">Подтвердить</button>
-                </form>
+            <div class="form">
+                <div v-if="$route.name === 'history'" style="margin-top: 50px">
+                    <h2>Фильтр:</h2>
+                    <form @submit.prevent="filtSet" autocomplete="off">
+                        <InputBox v-model="like" label="Найти"/>
+                        <DateRange v-model="range"/>
+                        <button class="btn submit" type="submit">Подтвердить</button>
+                    </form>
+                </div>
+                <div v-if="$route.name === 'search'" style="margin-top: 50px">
+                    <h2>Фильтр:</h2>
+                    <form @submit.prevent="filtSet" autocomplete="off">
+                        <InputBox v-model="like" label="Найти"/>
+                        <DateRange v-model="range"/>
+                        <button class="btn submit" type="submit">Подтвердить</button>
+                    </form>
+                </div>
+                <div v-if="$route.name === 'requests'" style="margin-top: 50px">
+                    <h2>Фильтр:</h2>
+                    <form @submit.prevent="filtSet" autocomplete="off">
+                        <InputBox v-model="like" label="Найти"/>
+                        <label class="select-label">
+                            <p>Статус: </p>
+                            <select v-model="status">
+                                <option value="0">Все</option>
+                                <option value="1">Новый</option>
+                                <option value="3">Решен</option>
+                                <option value="2">Просмотрен</option>
+                            </select>
+                        </label>
+                        <DateRange v-model="range"/>
+                        <button class="btn submit" type="submit">Подтвердить</button>
+                    </form>
+                </div>
+                <div v-if="$route.name === 'docs'" style="margin-top: 50px">
+                    <h2>Фильтр:</h2>
+                    <form @submit.prevent="filtSet" autocomplete="off">
+                        <InputBox v-model="like" label="Найти"/>
+                        <DateRange v-model="range"/>
+                        <button class="btn submit" type="submit">Подтвердить</button>
+                    </form>
+                </div>
             </div>
-            <div v-if="$route.name === 'search'" style="margin-top: 50px">
-                <h2>Фильтр:</h2>
-                <form @submit.prevent="filtSet" autocomplete="off">
-                    <InputBox v-model="like" label="Найти"/>
-                    <DateRange v-model="range"/>
-                    <button class="btn submit" type="submit">Подтвердить</button>
-                </form>
-            </div>
-            <div v-if="$route.name === 'requests'" style="margin-top: 50px">
-                <h2>Фильтр:</h2>
-                <form @submit.prevent="filtSet" autocomplete="off">
-                    <InputBox v-model="like" label="Найти"/>
-                    <label class="select-label">
-                        <p>Статус: </p>
-                        <select v-model="status">
-                            <option value="0">Все</option>
-                            <option value="1">Новый</option>
-                            <option value="3">Решен</option>
-                            <option value="2">Просмотрен</option>
-                        </select>
-                    </label>
-                    <DateRange v-model="range"/>
-                    <button class="btn submit" type="submit">Подтвердить</button>
-                </form>
-            </div>
-            <div v-if="$route.name === 'docs'" style="margin-top: 50px">
-                <h2>Фильтр:</h2>
-                <form @submit.prevent="filtSet" autocomplete="off">
-                    <InputBox v-model="like" label="Найти"/>
-                    <DateRange v-model="range"/>
-                    <button class="btn submit" type="submit">Подтвердить</button>
-                </form>
-            </div>
-
 
         </div>
         <div style="width: 100%">
@@ -77,8 +78,17 @@ export default {
     },
     mounted() {
         console.log(this.$route);
+        document.addEventListener('scroll', this.scroll);
+    },
+    destroyed() {
+        document.removeEventListener('scroll', this.scroll)
     },
     methods: {
+        scroll() {
+            let top = window.scrollY;
+            let nav = document.getElementsByClassName('nv-desctop')[0];
+            nav.style.marginTop = '-' + (top > 115 ? 115 : top) + 'px';
+        },
         filtSet(event) {
             this.filter = {}
             this.$set(this.filter, 'like', this.like.length > 0 ? this.like : null);
@@ -121,6 +131,10 @@ export default {
 .nv-desctop
     margin-right: 63px
     min-width: 250px
+    > *
+        position: fixed
+    > .form
+        margin-top: 140px
     @media (max-width: 414px)
         display: none
 
