@@ -14,9 +14,11 @@ export default {
     },
     data() {
         return {
-            value: null,
             range: null,
         }
+    },
+    props: {
+        value: null,
     },
     watch: {
         range(value) {
@@ -26,7 +28,7 @@ export default {
             this.range = value;
         }
     },
-    mounted() {
+    created() {
         this.range = this.value;
     }
 }
