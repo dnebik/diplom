@@ -17,6 +17,7 @@ Vue.config.productionTip = false;
 Vue.component('top', require('./components/Header').default);
 Vue.component('navigate', require('./components/content/UI/Navigation').default);
 Vue.component('loading', require('./components/content/UI/Loading').default);
+Vue.component('modal', require('./components/content/UI/Modal').default);
 
 
 import router from "./routes";
@@ -64,6 +65,7 @@ const app = new Vue({
             path: window.location.origin,
             user: null,
             loaded: true,
+            modal_opened: false,
         }
     },
     watch: {

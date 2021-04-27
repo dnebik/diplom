@@ -2,66 +2,30 @@
     <div class="flex-body">
         <div class="nv-desctop">
             <navigate></navigate>
-
-            <div class="form">
-                <div v-if="$route.name === 'history'" style="margin-top: 50px">
-                    <h2>Фильтр:</h2>
-                    <form @submit.prevent="filtSet" autocomplete="off">
-                        <InputBox v-model="like" label="Найти"/>
-                        <DateRange v-model="range"/>
-                        <button class="btn submit" type="submit">Подтвердить</button>
-                    </form>
-                </div>
-                <div v-if="$route.name === 'search'" style="margin-top: 50px">
-                    <h2>Фильтр:</h2>
-                    <form @submit.prevent="filtSet" autocomplete="off">
-                        <InputBox v-model="like" label="Найти"/>
-                        <DateRange v-model="range"/>
-                        <button class="btn submit" type="submit">Подтвердить</button>
-                    </form>
-                </div>
-                <div v-if="$route.name === 'requests'" style="margin-top: 50px">
-                    <h2>Фильтр:</h2>
-                    <form @submit.prevent="filtSet" autocomplete="off">
-                        <InputBox v-model="like" label="Найти"/>
-                        <label class="select-label">
-                            <p>Статус: </p>
-                            <select v-model="status">
-                                <option value="0">Все</option>
-                                <option value="1">Новый</option>
-                                <option value="3">Решен</option>
-                                <option value="2">Просмотрен</option>
-                            </select>
-                        </label>
-                        <DateRange v-model="range"/>
-                        <button class="btn submit" type="submit">Подтвердить</button>
-                    </form>
-                </div>
-                <div v-if="$route.name === 'docs'" style="margin-top: 50px">
-                    <h2>Фильтр:</h2>
-                    <form @submit.prevent="filtSet" autocomplete="off">
-                        <InputBox v-model="like" label="Найти"/>
-                        <DateRange v-model="range"/>
-                        <button class="btn submit" type="submit">Подтвердить</button>
-                    </form>
-                </div>
-            </div>
-
+            <DocumentFilter :route-name="$route.name"/>
         </div>
         <div style="width: 100%">
+            <button type="button" class="btn primary" @click="openFilter">Фильтр</button>
             <router-view :filter="filter"></router-view>
         </div>
+        <Modal :view-modal="open_filter" @close="closeFilter">
+            <DocumentFilter :route-name="$route.name"/>
+        </Modal>
     </div>
 </template>
 
 <script>
 import DateRange from "./UI/DateRange";
 import InputBox from "./UI/InputBox";
+import Modal from "./UI/Modal";
+import DocumentFilter from "./UI/DocumentFilter";
 export default {
     name: "Documents",
     components: {
         DateRange,
-        InputBox
+        InputBox,
+        Modal,
+        DocumentFilter
     },
     data() {
         return {
@@ -69,6 +33,7 @@ export default {
             range: null,
             status: 0,
 
+            open_filter: false,
             filter: {
                 like: null,
                 range: null,
@@ -84,6 +49,14 @@ export default {
         document.removeEventListener('scroll', this.scroll)
     },
     methods: {
+        openFilter() {
+            this.open_filter = true;
+            this.$root.$data.modal_opened = true;
+        },
+        closeFilter() {
+            this.open_filter = false;
+            this.$root.$data.modal_opened = false;
+        },
         scroll() {
             let top = window.scrollY;
             let nav = document.getElementsByClassName('nv-desctop')[0];
@@ -127,6 +100,12 @@ export default {
 
 .flex-body
     display: flex
+    .btn.primary
+        display: none
+        float: right
+        margin-bottom: 30px
+        @media (max-width: 414px)
+            display: block
 
 .nv-desctop
     margin-right: 63px
@@ -137,8 +116,4 @@ export default {
         margin-top: 140px
     @media (max-width: 414px)
         display: none
-
-    .btn
-        float: right
-        margin-top: 20px
 </style>

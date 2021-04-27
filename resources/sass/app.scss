@@ -53,13 +53,22 @@ select {
     background-position-y: 15px;
 }
 label.select-label {
-    p {
+    span {
         margin: 0 0 5px 2px;
         color: #2d3748;
         font-size: 18px;
     }
 }
 
+
+
+//modal
+#app {
+    &.modal__open {
+        overflow: hidden;
+        height: 100vh;
+    }
+}
 
 
 

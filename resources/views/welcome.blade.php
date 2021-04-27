@@ -11,7 +11,7 @@
 <body>
 
 
-<div id="app">
+<div id="app" :class="{modal__open: modal_opened}">
     <top> </top>
     <div class="container-wrapper">
         <div class="container">
