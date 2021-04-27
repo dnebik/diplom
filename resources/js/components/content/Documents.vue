@@ -5,11 +5,11 @@
             <DocumentFilter :route-name="$route.name"/>
         </div>
         <div style="width: 100%">
-            <button type="button" class="btn primary" @click="openFilter">Фильтр</button>
+            <button type="button" class="btn primary" @click="open_filter = !open_filter">Фильтр</button>
             <router-view :filter="filter"></router-view>
         </div>
         <Modal :view-modal="open_filter" @close="closeFilter">
-            <DocumentFilter :route-name="$route.name"/>
+            <DocumentFilter :route-name="$route.name" @submit="setFilter()"/>
         </Modal>
     </div>
 </template>
@@ -49,14 +49,6 @@ export default {
         document.removeEventListener('scroll', this.scroll)
     },
     methods: {
-        openFilter() {
-            this.open_filter = true;
-            this.$root.$data.modal_opened = true;
-        },
-        closeFilter() {
-            this.open_filter = false;
-            this.$root.$data.modal_opened = false;
-        },
         scroll() {
             let top = window.scrollY;
             let nav = document.getElementsByClassName('nv-desctop')[0];
