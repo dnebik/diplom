@@ -8,8 +8,8 @@
             <button type="button" class="btn primary" @click="open_filter = !open_filter">Фильтр</button>
             <router-view :filter="filter"></router-view>
         </div>
-        <Modal :view-modal="open_filter" @close="closeFilter">
-            <DocumentFilter :route-name="$route.name" @submit="setFilter()"/>
+        <Modal :view-modal="open_filter" @close="open_filter = false">
+            <DocumentFilter :route-name="$route.name" @submit="setFilter"/>
         </Modal>
     </div>
 </template>
@@ -49,12 +49,16 @@ export default {
         document.removeEventListener('scroll', this.scroll)
     },
     methods: {
+        setFilter(filter) {
+            this.filter = filter;
+            this.filtSet();
+        },
         scroll() {
             let top = window.scrollY;
             let nav = document.getElementsByClassName('nv-desctop')[0];
             nav.style.marginTop = '-' + (top > 115 ? 115 : top) + 'px';
         },
-        filtSet(event) {
+        filtSet() {
             this.filter = {}
             this.$set(this.filter, 'like', this.like.length > 0 ? this.like : null);
             this.$set(this.filter, 'status', this.status);
