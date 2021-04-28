@@ -45,6 +45,7 @@ export default {
     },
     methods: {
         setFilter(filter) {
+            this.open_filter = false;
             this.filtSet(filter);
         },
         scroll() {
