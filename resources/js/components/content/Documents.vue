@@ -29,10 +29,6 @@ export default {
     },
     data() {
         return {
-            like: '',
-            range: null,
-            status: 0,
-
             open_filter: false,
             filter: {
                 like: null,
@@ -42,7 +38,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.$route);
         document.addEventListener('scroll', this.scroll);
     },
     destroyed() {
