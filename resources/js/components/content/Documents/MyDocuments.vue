@@ -44,7 +44,6 @@ export default {
     },
     watch: {
         filter() {
-            console.log('load')
             this.load();
         }
     },
