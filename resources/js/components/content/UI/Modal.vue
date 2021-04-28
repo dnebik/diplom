@@ -73,7 +73,11 @@ export default {
         display: flex
         flex-direction: column
         align-items: center
+        transition: 0.4s ease-in-out
+        z-index: 10
 
         &:not(.open)
-            display: none
+            transform: translateX(100%)
+            height: 0
+            pointer-events: none
 </style>
