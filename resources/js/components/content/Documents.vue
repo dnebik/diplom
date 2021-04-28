@@ -45,26 +45,25 @@ export default {
     },
     methods: {
         setFilter(filter) {
-            this.filter = filter;
-            this.filtSet();
+            this.filtSet(filter);
         },
         scroll() {
             let top = window.scrollY;
             let nav = document.getElementsByClassName('nv-desctop')[0];
             nav.style.marginTop = '-' + (top > 115 ? 115 : top) + 'px';
         },
-        filtSet() {
+        filtSet(new_filter) {
             this.filter = {}
-            this.$set(this.filter, 'like', this.like.length > 0 ? this.like : null);
-            this.$set(this.filter, 'status', this.status);
-            if (this.range !== null) {
-                let start = this.range.start;
+            this.$set(this.filter, 'like', new_filter.like.length > 0 ? new_filter.like : null);
+            this.$set(this.filter, 'status', new_filter.status);
+            if (new_filter.range !== null) {
+                let start = new_filter.range.start;
                 start = new Date(
                     +start.getFullYear(),
                     +start.getMonth(),
                     +start.getDate() + 1
                 );
-                let end = this.range.end;
+                let end = new_filter.range.end;
                 end = new Date(
                     +end.getFullYear(),
                     +end.getMonth(),
