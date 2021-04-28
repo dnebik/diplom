@@ -5,7 +5,7 @@
             <DocumentFilter :route-name="$route.name"/>
         </div>
         <div style="width: 100%">
-            <button type="button" class="btn primary" @click="open_filter = !open_filter">Фильтр</button>
+            <button v-if="$route.meta.needFilter" type="button" class="btn primary" @click="open_filter = !open_filter">Фильтр</button>
             <router-view :filter="filter"></router-view>
         </div>
         <Modal :view-modal="open_filter" @close="open_filter = false">
