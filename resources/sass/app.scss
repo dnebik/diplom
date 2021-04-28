@@ -17,6 +17,9 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 body {
+    position: relative;
+    max-width: 100vh;
+    overflow-x: hidden;
     font-family: 'PT Sans', sans-serif !important;
     &.modal-show {
         overflow: hidden;

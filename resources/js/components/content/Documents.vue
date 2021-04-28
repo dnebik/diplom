@@ -90,6 +90,8 @@ export default {
 <style scoped lang="sass">
 
 .flex-body
+    width: inherit
+    overflow-x: hidden
     display: flex
     .btn.primary
         display: none

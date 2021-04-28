@@ -65,19 +65,24 @@ export default {
         top: 0
         left: 0
         box-sizing: border-box
-        width: 100vw
-        min-height: 100vh
-        height: 100%
         background-color: white
         padding: 20px
         display: flex
         flex-direction: column
         align-items: center
-        transition: 0.4s ease-in-out
         z-index: 10
+        transition: transform 0.4s ease-in-out
+        overflow: hidden
 
+        &.open
+            width: 100vw
+            height: 100%
+            min-height: 100vh
+            transform: translateX(0%)
         &:not(.open)
             transform: translateX(100%)
-            height: 0
-            pointer-events: none
+            max-width: 0
+            max-height: 0
+            padding: 0
+
 </style>
