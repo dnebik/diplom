@@ -6,6 +6,7 @@
 
     <title>Document Server</title>
 
+    <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
@@ -23,8 +24,8 @@
 
 
 {{--<script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>--}}
-<script src="{{ asset('js/vendor/pdf.js/pdf.js') }}" defer></script>
-<script src="{{ asset('js/vendor/pdf.js/pdf.worker.js') }}" defer></script>
-<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset('js/vendor/pdf.js/pdf.js') }}"></script>
+{{--<script src="{{ asset('js/vendor/pdf.js/pdf.worker.js') }}"></script>--}}
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
