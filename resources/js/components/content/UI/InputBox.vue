@@ -80,7 +80,7 @@ export default {
 
 <style scoped lang="sass">
     .body
-        min-width: 250px
+        //min-width: 250px
         //padding: 13px 11px 11px 9px
         height: 45px
         border-radius: 3px
@@ -99,6 +99,7 @@ export default {
                 font-size: 18px
                 border: unset
                 flex: auto
+                width: 100%
                 &:focus
                     outline: none
             span
