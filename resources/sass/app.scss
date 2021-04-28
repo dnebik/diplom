@@ -1,1 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 //
+html, body {
+    padding: 0; margin: 0;
+    height: 100%;
+}
+a, a:hover, a:active {
+    color: unset;
+    text-decoration: unset;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    margin-top: 0;
+    margin-bottom: 28px;
+    color: #2d3748;
+    font-weight: normal;
+}
+
+body {
+    position: relative;
+    max-width: 100vh;
+    overflow-x: hidden;
+    font-family: 'PT Sans', sans-serif !important;
+    &.modal-show {
+        overflow: hidden;
+    }
+}
+
+
+.vc-container {
+    --blue-200: #cce8e8 !important;
+    --blue-700: #028f91 !important;
+    --blue-600: #028f91 !important;
+    --rounded-lg: 3px !important;
+}
+
+
+
+
+//select
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 3px;
+    border: 1px solid #D2D2D2;
+    padding: 8px 32px 8px 9px;
+    font-size: 16px;
+    color: #48ACAD;
+    width: 100%;
+    margin-bottom: 18px;
+    position: relative;
+    background-image: url("/images/arrow.svg");
+    background-repeat: no-repeat;
+    background-position-x: calc(100% - 11px);
+    background-position-y: 15px;
+}
+label.select-label {
+    span {
+        margin: 0 0 5px 2px;
+        color: #2d3748;
+        font-size: 18px;
+    }
+}
+
+
+
+//modal
+#app {
+    &.modal__open {
+        overflow: hidden;
+        height: 100vh;
+    }
+}
+
+
+
+//
+.container-wrapper {
+    margin: 0 auto;
+    max-width: 1500px;
+
+    .container {
+        padding-top: 55px;
+        padding-bottom: 30px;
+        .main-loading {
+            position: absolute;
+            top: 30%;
+            left: 0;
+            margin: 0 auto;
+            & > * {
+                transform: scale(1.3);
+            }
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .container {
+            padding-left: calc(80px + 64px);
+            padding-right: 64px;
+        }
+    }
+    @media (max-width: 1024px) {
+        .container {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+}
+
+.btn {
+    padding: 9px 38px 9px 38px;
+    border: unset;
+    border-radius: 3px;
+    width: max-content;
+    font-size: 17px;
+    cursor: pointer;
+    &.primary {
+        color: #FFFFFF;
+        background-color: #028F91;
+        &:focus {
+            box-shadow: 0 0 4px #48ACAD;
+        }
+    }
+    &.submit {
+        color: #105A5B;
+        background-color: #61D1A2;
+        &:focus {
+            box-shadow: 0 0 4px #89E8C0;
+        }
+    }
+    &:disabled {
+        background-color: #D2D2D2;
+        color: #ffffff;
+    }
+}

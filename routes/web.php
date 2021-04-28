@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::post('/file/upload', [DocumentController::class, 'upload']);
+Route::get('/file/{name}', [DocumentController::class, 'file']);
+Route::post('/docs/search', [DocumentController::class, 'searchDocs']);
+Route::post('/docs/history', [DocumentController::class, 'getHistory']);
+Route::post('/docs/my_docs', [DocumentController::class, 'getMyDocs']);
+Route::post('/docs', [DocumentController::class, 'index']);
+
+Route::post('/user', [AuthController::class, 'index']);
+Route::post('/user/login', [AuthController::class, 'login']);
+Route::post('/user/logout', [AuthController::class, 'logout']);
+
+Route::get('/{any}', function () {
     return view('welcome');
-});
+})->where('any', '.*');
