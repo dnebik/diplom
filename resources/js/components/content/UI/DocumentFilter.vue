@@ -58,6 +58,11 @@ export default {
             handler: 'refsChange',
             deep: true,
             immediate: true,
+        },
+        '$route': {
+            handler: 'refsChange',
+            deep:true,
+            immediate: true,
         }
     },
     mounted() {
@@ -71,7 +76,7 @@ export default {
             setTimeout(() => {
                 if (this.$refs.z) this.size = this.$refs.z.$el.clientWidth;
                 this.$refs.form.style.width = this.size + 'px';
-            },1)
+            },100)
         }
     }
 }
