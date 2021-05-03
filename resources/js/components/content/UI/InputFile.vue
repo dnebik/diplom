@@ -54,7 +54,6 @@ export default {
     width: 120px;
     height: 120px;
     margin-bottom: 20px;
-    margin-top: 25px;
 
     .input {
         width: 100%;
