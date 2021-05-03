@@ -183,6 +183,17 @@ export default {
 
 $modalPadding: 10px
 
+canvas
+    outline: 1px solid #000
+    margin-bottom: 15px
+
+.pages
+    max-width: 650px
+    & > *
+        width: 100%
+        &:hover
+            outline: none
+            box-shadow: 0 0 6px 2px #89E8C0
 
 .modal
     left: 0
