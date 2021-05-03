@@ -1,6 +1,7 @@
 <template>
     <div>
         <h2 v-if="file !== null && title !== null">{{title}}</h2>
+        <a v-if="link" :href="link" :download="filename">Download</a>
         <div>{{error.join(', ')}}</div>
         <div class="pages" ref="pages">
 
@@ -20,7 +21,15 @@ export default {
         file: {
             required: true,
         },
+        link: {
+            type: String,
+            default: null,
+        },
         title: {
+            type: String,
+            default: null,
+        },
+        filename: {
             type: String,
             default: null,
         }
