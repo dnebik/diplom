@@ -105,14 +105,18 @@ export default {
             return this.$parent.$data.user !== null;
         }
     },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.widthCheck);
+        window.removeEventListener('click', this.checkClick);
+        window.removeEventListener('scroll', this.checkScroll);
+    },
     mounted() {
         this.menuHeightUpdate();
-        window.addEventListener('resize', this.widthCheck)
+        window.addEventListener('resize', this.widthCheck);
+        window.addEventListener('click', this.checkClick);
+        window.addEventListener('scroll', this.checkScroll);
     },
     methods: {
-        exit() {
-
-        },
         toggleMenu() {
             if (!this.isAuthed) return;
             let nav = this.$refs['mobile_navigation'];
@@ -120,6 +124,25 @@ export default {
 
             nav.classList.toggle('hide')
             btn.classList.toggle('hide')
+        },
+        checkClick(event) {
+            let header = event.target.closest('.header');
+            if (!header) {
+                let nav = this.$refs['mobile_navigation'];
+                let btn = this.$refs['menu_button'];
+
+                nav.classList.add('hide')
+                btn.classList.add('hide')
+            }
+        },
+        checkScroll(event) {
+            let nav = this.$refs['mobile_navigation'];
+            let btn = this.$refs['menu_button'];
+
+            if (nav.classList.contains('hide')) return;
+
+            nav.classList.add('hide')
+            btn.classList.add('hide')
         },
         menuHeightUpdate() {
             if (!this.isAuthed) return;
