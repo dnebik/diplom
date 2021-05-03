@@ -93,6 +93,6 @@ export default {
             & > form
                 display: flex
                 flex-direction: column
+                align-items: flex-end
                 justify-content: center
-                align-items: end
 </style>
