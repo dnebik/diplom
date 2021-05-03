@@ -189,7 +189,7 @@ export default {
 
         .mobile-navigation
             overflow: hidden
-            transition: max-height .5s ease-in-out
+            transition: max-height .2s ease-in-out
             .main-nav
                 background-color: #028F91
                 display: flex
