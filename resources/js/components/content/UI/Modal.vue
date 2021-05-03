@@ -71,18 +71,16 @@ export default {
         flex-direction: column
         align-items: center
         z-index: 10
-        transition: transform 0.4s ease-in-out
+        transition: transform 0.2s ease-in-out
+        transform-origin: 100% 50%
         overflow: hidden
+        width: 100vw
+        height: 100%
+        min-height: 100vh
 
         &.open
-            width: 100vw
-            height: 100%
-            min-height: 100vh
-            transform: translateX(0%)
+            transform: rotateY(0)
         &:not(.open)
-            transform: translateX(100%)
-            max-width: 0
-            max-height: 0
-            padding: 0
+            transform: rotateY(90deg)
 
 </style>
