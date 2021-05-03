@@ -28,7 +28,7 @@ export default {
         label: { type: String },
         max: { type: Number, default: 0 },
     },
-    destroyed() {
+    beforeDestroy() {
         this.$refs.textarea.removeEventListener('input', this.checkHighlight);
         this.$refs.textarea.removeEventListener('focus', this.checkHighlight);
         this.$refs.textarea.removeEventListener('blur', this.checkHighlight);
