@@ -51,7 +51,7 @@ export default {
 
             setTimeout(() => {
                 textarea.style.height = 'auto';
-                textarea.style.height = textarea.scrollHeight + 'px';
+                textarea.style.height = textarea.scrollHeight > 35 ? textarea.scrollHeight + 'px': '22px';
             }, 1)
         },
         checkLen(event) {
@@ -110,6 +110,7 @@ export default {
 
         textarea {
             padding: 0;
+            height: 22px;
             width: 100%;
             color: #1D5F60;
             font-size: 18px;
