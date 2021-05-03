@@ -91,8 +91,11 @@ export default {
             flex-direction: column
             justify-content: center
             & > form
+                min-width: max-content
                 display: flex
                 flex-direction: column
                 align-items: flex-end
                 justify-content: center
+                .select-label
+                    width: 100%
 </style>
