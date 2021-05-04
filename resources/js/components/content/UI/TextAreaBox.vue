@@ -51,7 +51,7 @@ export default {
 
             setTimeout(() => {
                 textarea.style.height = 'auto';
-                textarea.style.height = textarea.scrollHeight > 35 ? textarea.scrollHeight + 'px': '22px';
+                textarea.style.height = textarea.scrollHeight > 40 ? textarea.scrollHeight + 'px': '22px';
             }, 1)
         },
         checkLen(event) {
