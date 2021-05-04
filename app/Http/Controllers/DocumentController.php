@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Document;
 use App\MyConst;
+use App\ReviewRequest;
 use App\User;
 use App\ViewsWeb;
 use Illuminate\Database\Query\Builder;
@@ -44,10 +45,17 @@ class DocumentController extends Controller
         $doc->trec = $path;
         $doc->login = $login;
         $doc->IP = $ip;
-        $doc->Comment_file = $comment;
+        $doc->Comment_file = is_null($comment) ? '' : $comment;
 
 
         if ($doc->save()) {
+            if (!is_null($request->post('recipient'))) {
+                $review = new ReviewRequest();
+                $review->id_doc = $doc->id;
+                $review->id_sender = Auth::user()->id;
+                $review->id_recipient = $request->post('recipient');
+                $review->save();
+            }
             return response(['status' => MyConst::OK, 'id' => $id_file]);
         } else {
             return response(['status' => MyConst::SAVE_ERROR]);
