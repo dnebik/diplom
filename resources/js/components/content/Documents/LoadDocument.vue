@@ -5,6 +5,7 @@
         <form @submit.prevent="send">
             <InputFile @change="fileInput"/>
             <TextAreaBox v-model="comment" label="Комментарий" :max="100" />
+            <EmployeeSelector/>
             <button type="submit" :disabled="waiting" class="btn primary">Загрузить</button>
         </form>
 
@@ -23,11 +24,13 @@
 import InputFile from "../UI/InputFile";
 import DocumentOnlineViewing from "../UI/DocumentOnlineViewing";
 import TextAreaBox from "../UI/TextAreaBox";
+import EmployeeSelector from "../UI/EmployeeSelector";
 export default {
     components: {
         InputFile,
         DocumentOnlineViewing,
         TextAreaBox,
+        EmployeeSelector,
     },
     name: "LoadDocument",
     data() {
