@@ -63,6 +63,16 @@ class DocumentController extends Controller
 
     }
 
+//    public function getReview() {
+////        return
+//    }
+    public function getNewReview() {
+        return response()->json(['status' => MyConst::OK, 'count' => ReviewRequest::where([
+            'id_recipient' => Auth::user()->id,
+            'id_status' => '1'
+        ])->selectRaw('count(*) as count')->first()['count']]);
+    }
+
     public function file($name) {
         $doc = Document::where('id_avt', '=', $name)->first();
         $path = $doc['trec'];

@@ -19,6 +19,7 @@ use App\Http\Controllers\UserController;
 Route::post('/staff/get', [UserController::class, 'getAllStaff'])->middleware('auth');
 Route::post('/file/upload', [DocumentController::class, 'upload'])->middleware('auth');
 Route::get('/file/{name}', [DocumentController::class, 'file'])->middleware('auth');
+Route::post('/docs/new_review', [DocumentController::class, 'getNewReview'])->middleware('auth');
 Route::post('/docs/search', [DocumentController::class, 'searchDocs'])->middleware('auth');
 Route::post('/docs/history', [DocumentController::class, 'getHistory'])->middleware('auth');
 Route::post('/docs/my_docs', [DocumentController::class, 'getMyDocs'])->middleware('auth');
