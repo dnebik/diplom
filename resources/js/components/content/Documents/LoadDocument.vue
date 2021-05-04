@@ -3,11 +3,8 @@
 
         <h1>Загрузка документа</h1>
         <form @submit.prevent="send">
-            <InputFile @change="fileInput"></InputFile>
-            <label>
-                <p>Комментарий:</p>
-                <textarea cols="30" rows="10" v-model="comment"></textarea>
-            </label>
+            <InputFile @change="fileInput"/>
+            <TextAreaBox v-model="comment" label="Комментарий" :max="100" />
             <button type="submit" :disabled="waiting" class="btn primary">Загрузить</button>
         </form>
 
@@ -25,10 +22,12 @@
 <script>
 import InputFile from "../UI/InputFile";
 import DocumentOnlineViewing from "../UI/DocumentOnlineViewing";
+import TextAreaBox from "../UI/TextAreaBox";
 export default {
     components: {
         InputFile,
         DocumentOnlineViewing,
+        TextAreaBox,
     },
     name: "LoadDocument",
     data() {
@@ -90,15 +89,17 @@ $modalPadding: 10px
 </style>
 
 <style lang="sass">
-
-.pages
-    canvas, img
-        border: 1px solid #028F91
-        max-width: 500px
-        width: 100%
-        margin-bottom: 5px
-        cursor: pointer
-        &:hover
-            box-shadow: 0 0 5px 5px #89E8C0
+.load-doc
+    form
+        max-width: 380px
+    .pages
+        canvas, img
+            border: 1px solid #028F91
+            max-width: 500px
+            width: 100%
+            margin-bottom: 5px
+            cursor: pointer
+            &:hover
+                box-shadow: 0 0 5px 5px #89E8C0
 
 </style>

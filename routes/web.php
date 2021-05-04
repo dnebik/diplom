@@ -15,11 +15,12 @@ use App\Http\Controllers\DocumentController;
 |
 */
 
-Route::post('/file/upload', [DocumentController::class, 'upload']);
-Route::get('/file/{name}', [DocumentController::class, 'file']);
-Route::post('/docs/my_docs', [DocumentController::class, 'getMyDocs']);
-Route::post('/docs/history', [DocumentController::class, 'getHistory']);
-Route::post('/docs', [DocumentController::class, 'index']);
+Route::post('/file/upload', [DocumentController::class, 'upload'])->middleware('auth');
+Route::get('/file/{name}', [DocumentController::class, 'file'])->middleware('auth');
+Route::post('/docs/search', [DocumentController::class, 'searchDocs'])->middleware('auth');
+Route::post('/docs/history', [DocumentController::class, 'getHistory'])->middleware('auth');
+Route::post('/docs/my_docs', [DocumentController::class, 'getMyDocs'])->middleware('auth');
+Route::post('/docs', [DocumentController::class, 'index'])->middleware('auth');
 
 Route::post('/user', [AuthController::class, 'index']);
 Route::post('/user/login', [AuthController::class, 'login']);

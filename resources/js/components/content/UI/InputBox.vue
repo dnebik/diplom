@@ -1,5 +1,5 @@
 <template>
-    <div class="body" ref="body">
+    <div :class="{body: true, notEmpty: value.length > 0}" ref="body">
         <label class="input-wrapper">
             <span ref="label">{{label}}</span>
             <input :type=" visible ? 'text' : 'password' "
@@ -80,7 +80,7 @@ export default {
 
 <style scoped lang="sass">
     .body
-        min-width: 250px
+        min-width: 100%
         //padding: 13px 11px 11px 9px
         height: 45px
         border-radius: 3px
@@ -88,6 +88,7 @@ export default {
         transition: 0.2s
         display: flex
         margin-bottom: 18px
+        border: 1px solid #D2D2D2
         .input-wrapper
             flex: auto
             position: relative
@@ -96,12 +97,15 @@ export default {
             padding: 0 9px
             align-items: center
             input
+                color: #D2D2D2
                 font-size: 18px
                 border: unset
                 flex: auto
+                width: 100%
                 &:focus
                     outline: none
             span
+                color: #D2D2D2
                 font-size: 16px
                 position: absolute
                 background-color: #ffffff
@@ -128,10 +132,4 @@ export default {
                 color: #48ACAD
             input
                 color: #1D5F60
-        &:not(.notEmpty)
-            border: 1px solid #D2D2D2
-            span
-                color: #D2D2D2
-            input
-                color: #D2D2D2
 </style>

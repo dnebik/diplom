@@ -76,6 +76,19 @@ class DocumentController extends Controller
             ->join('users', 'users.login', '=', 'all_file.login')
             ->orderBy('request_web.DateTimeSearch', 'desc');
 
+        $views->where('request_web.login', '=', $user->login);
+        $views = self::select($views);
+        $views = self::filter($views, $request->post('range'), $request->post('like'));
+
+        return response( $views->get() );
+    }
+
+    public function searchDocs(Request $request) {
+        $views = DB::table('all_file')
+            ->leftJoin('peer_review', 'all_file.id_avt', '=', 'peer_review.id_request')
+            ->join('users', 'users.login', '=', 'all_file.login')
+            ->orderBy('all_file.DateTimeUpld', 'desc');
+
         $views = self::select($views);
         $views = self::filter($views, $request->post('range'), $request->post('like'));
 

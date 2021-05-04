@@ -44,7 +44,6 @@ export default {
     },
     watch: {
         filter() {
-            console.log('load')
             this.load();
         }
     },
@@ -71,4 +70,16 @@ export default {
 <style scoped lang="sass">
     .my-documents-container
         flex: auto
+    .not__found
+        width: 50%
+        margin: 0 auto
+        min-width: 320px
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-direction: column
+        span
+            margin-top: 50px
+            font-size: 25px
+            text-align: center
 </style>

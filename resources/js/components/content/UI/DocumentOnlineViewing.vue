@@ -1,6 +1,7 @@
 <template>
     <div>
         <h2 v-if="file !== null && title !== null">{{title}}</h2>
+        <a v-if="link" :href="link" :download="filename">Download</a>
         <div>{{error.join(', ')}}</div>
         <div class="pages" ref="pages">
 
@@ -20,7 +21,15 @@ export default {
         file: {
             required: true,
         },
+        link: {
+            type: String,
+            default: null,
+        },
         title: {
+            type: String,
+            default: null,
+        },
+        filename: {
             type: String,
             default: null,
         }
@@ -174,6 +183,17 @@ export default {
 
 $modalPadding: 10px
 
+canvas
+    outline: 1px solid #000
+    margin-bottom: 15px
+
+.pages
+    max-width: 650px
+    & > *
+        width: 100%
+        &:hover
+            outline: none
+            box-shadow: 0 0 6px 2px #89E8C0
 
 .modal
     left: 0

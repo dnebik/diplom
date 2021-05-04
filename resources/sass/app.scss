@@ -17,6 +17,9 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 body {
+    position: relative;
+    max-width: 100vw;
+    overflow-x: hidden;
     font-family: 'PT Sans', sans-serif !important;
     &.modal-show {
         overflow: hidden;
@@ -32,6 +35,43 @@ body {
 }
 
 
+
+
+//select
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 3px;
+    border: 1px solid #D2D2D2;
+    padding: 8px 32px 8px 9px;
+    font-size: 16px;
+    color: #48ACAD;
+    width: 100%;
+    margin-bottom: 18px;
+    position: relative;
+    background-image: url("/images/arrow.svg");
+    background-repeat: no-repeat;
+    background-position-x: calc(100% - 11px);
+    background-position-y: 15px;
+}
+label.select-label {
+    span {
+        margin: 0 0 5px 2px;
+        color: #2d3748;
+        font-size: 18px;
+    }
+}
+
+
+
+//modal
+#app {
+    &.modal__open {
+        overflow: hidden;
+        height: 100vh;
+    }
+}
 
 
 
