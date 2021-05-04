@@ -55,6 +55,7 @@ export default {
             let data = new FormData();
             data.append('file', this.file);
             data.append('comment', this.comment);
+            if (this.request != 0) data.append('recipient', this.request);
 
 
             let req = axios.post('/file/upload', data, {
