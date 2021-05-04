@@ -22,7 +22,7 @@ class User extends Authenticatable
     public static function getUser(): \Illuminate\Contracts\Auth\Authenticatable
     {
         $user = Auth::user();
-        unset($user['id']);
+//        unset($user['id']);
         unset($user['login']);
         unset($user['password']);
         unset($user['unit']);
@@ -36,7 +36,7 @@ class User extends Authenticatable
     public function clear(): \Illuminate\Contracts\Auth\Authenticatable
     {
         $user = $this;
-        unset($user['id']);
+//        unset($user['id']);
         unset($user['login']);
         unset($user['password']);
         unset($user['unit']);
