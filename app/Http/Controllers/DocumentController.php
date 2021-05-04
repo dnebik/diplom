@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Document;
-use App\Providers\MyConst;
+use App\MyConst;
 use App\User;
 use App\ViewsWeb;
 use Illuminate\Database\Query\Builder;

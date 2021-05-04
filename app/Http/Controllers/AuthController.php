@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Providers\MyConst;
+use App\MyConst;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
