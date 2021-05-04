@@ -29,8 +29,8 @@ class DocumentController extends Controller
     }
 
     public function upload(Request $request) {
-        if (!$request->has('file'))
-            return response(['status' => MyConst::NO_SUCH_FILE]);
+        if (!$request->hasfile('file'))
+            return response(['status' => MyConst::BAD_REQUEST]);
 
         $date_path = "data/" . date('Y-m', time());
         $path = $request->file('file')->store($date_path);
