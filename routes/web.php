@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,7 @@ use App\Http\Controllers\DocumentController;
 |
 */
 
+Route::post('/staff/get', [UserController::class, 'getAllStaff'])->middleware('auth');
 Route::post('/file/upload', [DocumentController::class, 'upload'])->middleware('auth');
 Route::get('/file/{name}', [DocumentController::class, 'file'])->middleware('auth');
 Route::post('/docs/search', [DocumentController::class, 'searchDocs'])->middleware('auth');
