@@ -2,8 +2,11 @@
     <div class="employee-selector">
         <Loading v-if="!loaded"/>
         <label v-if="loaded" :for="id">Отправить на рассмотрение:</label>
-        <select v-if="loaded" :id="id">
-            <option v-for="(item, index) in employee" :key="index">{{ item }}</option>
+        <select v-if="loaded" :id="id" @change="$emit('change', $event.target.value)">
+            <option v-for="(item, index) in employee"
+                    :value="index"
+                    :selected="index == selected"
+                    :key="index">{{ item }}</option>
         </select>
     </div>
 </template>
@@ -15,6 +18,10 @@ export default {
     components: {
         Loading,
     },
+    model: {
+        prop: 'selected',
+        event: 'change',
+    },
     data() {
         return {
             id: null,
@@ -23,6 +30,9 @@ export default {
             },
             loaded: false,
         }
+    },
+    props: {
+        selected: [String, Number],
     },
     created() {
         this.id = Math.random().toString(36).substring(7);

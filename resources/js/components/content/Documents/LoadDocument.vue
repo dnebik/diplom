@@ -5,8 +5,8 @@
         <form @submit.prevent="send">
             <InputFile @change="fileInput"/>
             <TextAreaBox v-model="comment" label="Комментарий" :max="100" />
-            <EmployeeSelector/>
-            <button type="submit" :disabled="waiting" class="btn primary">Загрузить</button>
+            <EmployeeSelector v-model="request"/>
+            <button type="submit" :disabled="waiting || !file" class="btn primary">Загрузить</button>
         </form>
 
         <div class="preview" v-if="file && error.length === 0">
@@ -44,6 +44,7 @@ export default {
             file: null,
             error: [],
             comment: '',
+            request: 0,
         }
     },
     methods: {
