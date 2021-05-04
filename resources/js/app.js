@@ -70,6 +70,9 @@ const app = new Vue({
         }
     },
     watch: {
+        user() {
+            this.new_reviews = {};
+        },
         $route: {
             immediate: true,
             handler(to, from) {
@@ -89,7 +92,8 @@ const app = new Vue({
             let request = axios.post('/docs/new_review');
 
             request.then(value => {
-                this.new_reviews = value['data']['reviews'];
+                if (value['data']['reviews']) this.new_reviews = value['data']['reviews'];
+                else this.new_reviews = {};
             });
 
             request.catch(reason => {console.log(reason)});
