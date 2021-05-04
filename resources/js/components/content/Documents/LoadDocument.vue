@@ -1,6 +1,8 @@
 <template>
     <div class="load-doc">
 
+        <InfoBox v-if="error.length > 0" type="danger" text="Не удалось загрузить файл. Вероятно ваш файл слишком большой." />
+
         <h1>Загрузка документа</h1>
         <form @submit.prevent="send">
             <InputFile @change="fileInput"/>
@@ -25,12 +27,14 @@ import InputFile from "../UI/InputFile";
 import DocumentOnlineViewing from "../UI/DocumentOnlineViewing";
 import TextAreaBox from "../UI/TextAreaBox";
 import EmployeeSelector from "../UI/EmployeeSelector";
+import InfoBox from "../UI/InfoBox";
 export default {
     components: {
         InputFile,
         DocumentOnlineViewing,
         TextAreaBox,
         EmployeeSelector,
+        InfoBox,
     },
     name: "LoadDocument",
     data() {
@@ -50,6 +54,7 @@ export default {
     methods: {
         send(event) {
             this.waiting = true;
+            this.error = [];
 
 
             let data = new FormData();
@@ -66,11 +71,13 @@ export default {
                 if (value['data']['status']['code'] == 0) {
                     this.$router.push({name: 'view', params: {id: value['data']['id']}});
                 } else {
-                    /* TODO Error */
+                    this.error.push('');
                 }
             });
 
-            req.catch(reason => {});
+            req.catch(reason => {
+                this.error.push('');
+            });
 
             req.finally(() => {this.waiting = false});
         },
