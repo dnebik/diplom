@@ -16,6 +16,8 @@
             </div>
             <router-link :to="{name: 'requests'}">
                 <div class="name">Запросы</div>
+                <span v-if="$root.$data.new_reviews.length > 0"
+                     class="new-review-counter">{{$root.$data.new_reviews.length}}</span>
             </router-link>
             <router-link :to="{name: 'history'}">
                 <div class="name">История просмотров</div>
@@ -60,6 +62,25 @@ export default {
 
 .nav
     @media (max-width: 414px)
+        .new-review-counter
+            position: sticky
+            margin-left: -20.9px
+            background-color: #48ACAD
+            padding: 2px 6px
+            color: #017174
+            border-radius: 3px
+            font-size: 16px
+            right: 15px
+            &:after
+                position: absolute
+                content: ' '
+                width: 9px
+                height: 9px
+                left: -4.5px
+                top: 50%
+                transform: translateY(-50%) rotate(45deg)
+                background-color: #48ACAD
+
         .body
             background-color: #017174
             padding-top: 6px
@@ -78,6 +99,11 @@ export default {
             &.router-link-exact-active
                 background-color: #028F91
                 color: #ffffff
+                & .new-review-counter
+                    background-color: #ffffff
+                    color: #028F91
+                    &:after
+                        background-color: #ffffff
             &:not(.router-link-exact-active)
                 color: #48ACAD
 
@@ -85,6 +111,7 @@ export default {
                 fill: #ffffff
             &:not(.router-link-exact-active) ~ .add-link path
                 fill: #48ACAD
+
         .doc
             position: relative
             cursor: pointer
@@ -97,6 +124,24 @@ export default {
                 z-index: 2
 
     @media (min-width: 414px)
+        .new-review-counter
+            position: relative
+            margin-left: 15px
+            background-color: #D2D2D2
+            padding: 2px 6px
+            color: #828282
+            border-radius: 3px
+            font-size: 16px
+            &:after
+                position: absolute
+                content: ' '
+                width: 8px
+                height: 8px
+                left: -4px
+                top: 50%
+                transform: translateY(-50%) rotate(45deg)
+                background-color: #D2D2D2
+
         .body
             padding-top: 6px
             padding-bottom: 6px

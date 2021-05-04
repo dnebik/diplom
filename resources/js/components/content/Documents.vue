@@ -39,6 +39,7 @@ export default {
     },
     mounted() {
         document.addEventListener('scroll', this.scroll);
+        this.$root.watchReview();
     },
     destroyed() {
         document.removeEventListener('scroll', this.scroll)

@@ -66,6 +66,7 @@ const app = new Vue({
             user: null,
             loaded: true,
             modal_opened: false,
+            new_reviews: {},
         }
     },
     watch: {
@@ -84,6 +85,21 @@ const app = new Vue({
         },
     },
     methods: {
+        watchReview() {
+            let request = axios.post('/docs/new_review');
+
+            request.then(value => {
+                this.new_reviews = value['data']['reviews'];
+            });
+
+            request.catch(reason => {console.log(reason)});
+
+            request.finally(() => {
+                this.timer_review = setTimeout(() => {
+                    this.watchReview();
+                }, 20 * 1000)
+            });
+        },
         isAuthed() {
             return new Promise((resolve, reject) => {
                 axios.post('/user', {})

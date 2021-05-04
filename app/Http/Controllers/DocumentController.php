@@ -67,10 +67,19 @@ class DocumentController extends Controller
 ////        return
 //    }
     public function getNewReview() {
-        return response()->json(['status' => MyConst::OK, 'count' => ReviewRequest::where([
+        $reviews = ReviewRequest::where([
             'id_recipient' => Auth::user()->id,
-            'id_status' => '1'
-        ])->selectRaw('count(*) as count')->first()['count']]);
+            'id_status' => '1'])
+            ->select('all_file.id_avt')
+            ->join('all_file', 'all_file.id', '=', 'review_requests.id_doc')
+            ->get()
+            ->all();
+
+        $reviews = array_map(function ($item) {
+            return $item['id_avt'];
+        }, $reviews);
+
+        return response()->json(['status' => MyConst::OK, 'reviews' => $reviews]);
     }
 
     public function file($name) {
