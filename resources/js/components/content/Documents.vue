@@ -2,7 +2,7 @@
     <div class="flex-body">
         <div class="nv-desctop">
             <navigate></navigate>
-            <DocumentFilter :route-name="$route.name"/>
+            <DocumentFilter :route-name="$route.name" @submit="setFilter"/>
         </div>
         <div style="width: 100%">
             <button v-if="$route.meta.needFilter" type="button" class="btn primary" @click="open_filter = !open_filter">Фильтр</button>
