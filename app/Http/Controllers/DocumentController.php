@@ -147,7 +147,8 @@ class DocumentController extends Controller
             ->leftJoin('peer_review', 'all_file.id_avt', '=', 'peer_review.id_request')
             ->join('users', 'users.login', '=', 'all_file.login')
             ->join('review_request_status', 'review_request_status.id', '=', 'review_requests.id_status')
-            ->orderBy('id_status', 'desc');
+            ->orderBy('id_status', 'asc')
+            ->orderBy('review_requests.create_date', 'desc');
 
         $views->where('id_recipient', '=', $user->id);
         $views = self::select($views);
