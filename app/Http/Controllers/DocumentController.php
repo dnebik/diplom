@@ -138,6 +138,29 @@ class DocumentController extends Controller
         return response( $views->get() );
     }
 
+    public function getRequests(Request $request) {
+        $user = Auth::user();
+        if (is_null($user)) return response(['status' => MyConst::UNAUTHORIZED]);
+
+        $views = DB::table('review_requests')
+            ->leftJoin('all_file', 'all_file.id', '=', 'review_requests.id_doc')
+            ->leftJoin('peer_review', 'all_file.id_avt', '=', 'peer_review.id_request')
+            ->join('users', 'users.login', '=', 'all_file.login')
+            ->join('review_request_status', 'review_request_status.id', '=', 'review_requests.id_status')
+            ->orderBy('id_status', 'desc');
+
+        $views->where('id_recipient', '=', $user->id);
+        $views = self::select($views);
+        $views->addSelect('review_request_status.id as status_id');
+        $views->addSelect('review_request_status.name as status_name');
+        $views = self::filter($views, $request->post('range'), $request->post('like'));
+        if ($request->post('status') != 0) {
+            $views->where('id_status', '=', $request->post('status'));
+        }
+
+        return response( $views->get() );
+    }
+
     public function filter($query, $range, $like) : Builder {
         if ($range != null)
         {
