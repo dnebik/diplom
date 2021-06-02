@@ -48,16 +48,21 @@ export default {
     watch: {
         filter() {
             this.load();
+        },
+        '$root.$data.new_reviews': {
+            handler: 'load',
+            immediate: true,
+            deep: false,
         }
     },
     mounted() {
-        this.load();
+        this.$root.watchReview();
+        // this.load();
     },
     methods: {
         load() {
             this.waiting = true;
             this.list = [];
-            this.$root.watchReview();
             let req = axios.post('/docs/requests', this.filter);
             req.then(value => {this.list = value['data']})
             req.catch(() => {})

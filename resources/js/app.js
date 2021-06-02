@@ -66,12 +66,12 @@ const app = new Vue({
             user: null,
             loaded: true,
             modal_opened: false,
-            new_reviews: {},
+            new_reviews: [],
         }
     },
     watch: {
         user() {
-            this.new_reviews = {};
+            this.new_reviews = [];
         },
         $route: {
             immediate: true,
@@ -93,8 +93,12 @@ const app = new Vue({
             let request = axios.post('/docs/new_review');
 
             request.then(value => {
-                if (value['data']['reviews']) this.new_reviews = value['data']['reviews'];
-                else this.new_reviews = {};
+                if (value['data']['reviews']) {
+
+                    if (JSON.stringify(value['data']['reviews']) !== JSON.stringify(this.new_reviews))
+                        this.new_reviews = value['data']['reviews'];
+                }
+                else this.new_reviews = [];
             });
 
             request.catch(reason => {console.log(reason)});
