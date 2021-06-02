@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Document extends Model
 {
@@ -13,6 +14,13 @@ class Document extends Model
 
     public function addView($ip) : bool {
         $user = Auth::user();
+
+        $request = DB::table('review_requests')
+            ->where('id_doc', '=', $this->id)
+            ->where('id_recipient', '=', $user->id)
+            ->where('id_status', '=', '1');
+        $request->update(['id_status' => 2]);
+
         $request = ViewsWeb::where(['login' => $user->login, 'id_request' => $this->id_avt])->first();
         if (is_null($request)) {
             $new_request = new ViewsWeb();
