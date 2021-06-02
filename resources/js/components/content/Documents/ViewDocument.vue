@@ -66,6 +66,7 @@ export default {
                                 res.blob().then(blob => {
                                     this.file = new File([blob], `file.${value['extension']}`,  { type: blob.type });
                                     this.fileLoaded = true;
+                                    this.$root.watchReview();
                                 });
                             else this.fileError = true;
                         })

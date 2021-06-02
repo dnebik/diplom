@@ -57,6 +57,7 @@ export default {
         load() {
             this.waiting = true;
             this.list = [];
+            this.$root.watchReview();
             let req = axios.post('/docs/requests', this.filter);
             req.then(value => {this.list = value['data']})
             req.catch(() => {})
