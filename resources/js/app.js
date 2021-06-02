@@ -89,6 +89,7 @@ const app = new Vue({
     },
     methods: {
         watchReview() {
+            clearTimeout(this.timer_review);
             let request = axios.post('/docs/new_review');
 
             request.then(value => {
