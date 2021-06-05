@@ -160,16 +160,16 @@ export default {
     width: 250px
     .info_wrapper
         margin-bottom: 12px
-        .title
-            display: block
-            color: #D2D2D2
-            font-weight: 400
-            font-size: 18px
-        .info
-            display: block
-            color: #028F91
-            font-weight: 400
-            font-size: 18px
+    .title
+        display: block
+        color: #D2D2D2
+        font-weight: 400
+        font-size: 18px
+    .info
+        display: block
+        color: #028F91
+        font-weight: 400
+        font-size: 18px
     .employee_selector
         margin-top: 25px
 
