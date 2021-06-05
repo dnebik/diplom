@@ -138,6 +138,44 @@ class DocumentController extends Controller
         return response( $views->get() );
     }
 
+    public function getDocInfo(Request $request) {
+        $user = Auth::user();
+        if (!$request->post('id')) return response(['status' => MyConst::BAD_REQUEST]);
+
+        $file = DB::table('all_file')
+            ->join('users', 'users.login', '=', 'all_file.login')
+            ->where('all_file.id_avt', '=', $request->post('id'))
+            ->select([
+                'all_file.id_avt as id',
+                'all_file.Comment_file as comment',
+                'all_file.DateTimeUpld',
+                'all_file.login as creator_login',
+                'users.FIO',
+                'users.sFIO',
+            ])
+            ->limit(1)
+            ->get();
+
+
+        $review = DB::table('peer_review')
+            ->where('peer_review.id_request', '=', $request->post('id'))
+            ->join('users', 'users.login', '=', 'peer_review.login')
+            ->select([
+                'essence',
+                'comment',
+                'DateTimeComment',
+                'users.login',
+                'users.FIO',
+                'users.sFIO',
+            ])
+            ->get();
+
+        return response()->json([
+            $file,
+            'review' => is_null($review) ? [] : $review,
+        ]);
+    }
+
     public function getRequests(Request $request) {
         $user = Auth::user();
         if (is_null($user)) return response(['status' => MyConst::UNAUTHORIZED]);
