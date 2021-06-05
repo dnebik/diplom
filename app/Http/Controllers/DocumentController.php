@@ -156,6 +156,7 @@ class DocumentController extends Controller
             ->limit(1)
             ->get();
 
+        if (is_array($file) && count($file) != 0) return response(['status' => MyConst::NO_SUCH_FILE]);
 
         $review = DB::table('peer_review')
             ->where('peer_review.id_request', '=', $request->post('id'))
@@ -170,10 +171,13 @@ class DocumentController extends Controller
             ])
             ->get();
 
+        $file = $file[0];
+        $file = (array)$file;
+        $file['reviews'] = is_null($review) ? [] : $review;
+
         return response([
             'status' => MyConst::OK,
-            $file,
-            'review' => is_null($review) ? [] : $review,
+            'document' => $file,
         ]);
     }
 
