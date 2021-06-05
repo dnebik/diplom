@@ -63,6 +63,23 @@ class DocumentController extends Controller
 
     }
 
+    public function sendReview(Request $request) {
+        if (!is_null($request->post('recipient')) &&
+            !is_null($request->post('id'))) {
+            $review = new ReviewRequest();
+            $review->id_doc = $request->post('id');
+            $review->id_sender = Auth::user()->id;
+            $review->id_recipient = $request->post('recipient');
+            if ($review->save()) {
+                return response(['status' => MyConst::OK]);
+            } else {
+                return response(['status' => MyConst::SAVE_ERROR]);
+            }
+        } else {
+            return response(['status' => MyConst::BAD_REQUEST]);
+        }
+    }
+
 //    public function getReview() {
 ////        return
 //    }
