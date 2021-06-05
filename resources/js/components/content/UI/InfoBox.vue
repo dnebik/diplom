@@ -43,6 +43,6 @@ export default {
         align-items: center
         justify-content: center
         transition: 0.3s ease-in-out
-        .hide
+        &.hide
             opacity: 0
 </style>
