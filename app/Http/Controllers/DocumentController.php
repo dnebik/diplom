@@ -148,7 +148,7 @@ class DocumentController extends Controller
             ->select([
                 'all_file.id_avt as id',
                 'all_file.Comment_file as comment',
-                'all_file.DateTimeUpld',
+                'all_file.DateTimeUpld as date',
                 'all_file.login as creator_login',
                 'users.FIO',
                 'users.sFIO',
@@ -163,7 +163,7 @@ class DocumentController extends Controller
             ->select([
                 'essence',
                 'comment',
-                'DateTimeComment',
+                'DateTimeComment as date',
                 'users.login',
                 'users.FIO',
                 'users.sFIO',
