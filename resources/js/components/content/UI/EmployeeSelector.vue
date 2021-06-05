@@ -1,7 +1,7 @@
 <template>
     <div class="employee-selector">
         <Loading v-if="!loaded"/>
-        <label v-if="loaded" :for="id">Отправить на рассмотрение:</label>
+        <label v-if="loaded && label" :for="id">Отправить на рассмотрение:</label>
         <select v-if="loaded" :id="id" @change="$emit('change', $event.target.value)">
             <option v-for="(item, index) in employee"
                     :value="index"
@@ -25,14 +25,20 @@ export default {
     data() {
         return {
             id: null,
-            employee: {
-                0: 'Не отправлять'
-            },
+            employee: {},
             loaded: false,
         }
     },
     props: {
         selected: [String, Number],
+        label: {
+            type: Boolean,
+            default: true,
+        },
+        with_none: {
+            type: Boolean,
+            default: true
+        }
     },
     created() {
         this.id = Math.random().toString(36).substring(7);
@@ -40,6 +46,9 @@ export default {
     mounted() {
         let request = axios.post('/staff/get');
         request.then(value => {
+            if (this.with_none) {
+                this.$set(this.employee, 0, "Не отправлять");
+            }
             for (let item of value['data']['staff']) {
                 if (this.$root['user']['id'] === item['id']) continue;
                 this.$set(this.employee, item['id'], item['FIO']);
