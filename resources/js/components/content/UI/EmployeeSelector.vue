@@ -2,7 +2,7 @@
     <div class="employee-selector">
         <Loading v-if="!loaded"/>
         <label v-if="loaded && label" :for="id">Отправить на рассмотрение:</label>
-        <select v-if="loaded" :id="id" @change="$emit('change', $event.target.value)">
+        <select ref="select" v-if="loaded" :id="id" @change="$emit('change', $event.target.value)">
             <option v-for="(item, index) in employee"
                     :value="index"
                     :selected="index == selected"
@@ -55,7 +55,12 @@ export default {
             }
         });
         request.catch(reason => {console.log(reason)});
-        request.finally(() => {this.loaded = true})
+        request.finally(() => {
+            this.loaded = true;
+            setTimeout(() => {
+                this.$emit('change', this.$refs.select.value)
+            }, 50);
+        })
     }
 }
 </script>
