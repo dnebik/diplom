@@ -163,7 +163,8 @@ class DocumentController extends Controller
             ->join('users', 'users.login', '=', 'all_file.login')
             ->where('all_file.id_avt', '=', $request->post('id'))
             ->select([
-                'all_file.id_avt as id',
+                'all_file.id_avt as id_avt',
+                'all_file.id as id',
                 'all_file.Comment_file as comment',
                 'all_file.DateTimeUpld as date',
                 'all_file.login as creator_login',
