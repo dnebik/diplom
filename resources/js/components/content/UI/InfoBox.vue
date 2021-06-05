@@ -2,7 +2,8 @@
     <div :class="{
         'info-box': true,
         'info': type === 'info',
-        'danger': type === 'danger'
+        'danger': type === 'danger',
+        'hide': !visible,
     }">
         {{text}}
     </div>
@@ -19,6 +20,10 @@ export default {
         type: {
             type: String,
             default: 'info',
+        },
+        visible: {
+            type: Boolean,
+            default: true,
         }
     }
 }
@@ -37,4 +42,7 @@ export default {
         display: flex
         align-items: center
         justify-content: center
+        transition: 0.3s ease-in-out
+        .hide
+            opacity: 0
 </style>
