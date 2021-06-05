@@ -51,6 +51,9 @@ export default {
     mounted() {
         this.load();
     },
+    destroyed() {
+        this.$root.$data.last_doc = null;
+    },
     methods: {
         load() {
             let req_info = axios.post('/docs/info', {
