@@ -36,8 +36,6 @@ export default {
         padding: 11px
         margin: 12px 0 25px 0
         border-radius: 3px
-        background-color: #F8DFDF
-        color: #105A5B
         font-size: 18px
         display: flex
         align-items: center
@@ -45,4 +43,10 @@ export default {
         transition: 0.3s ease-in-out
         &.hide
             opacity: 0
+        &.danger
+            background-color: #F8DFDF
+            color: #105A5B
+        &.info
+            background-color: #eaf4fc
+            color: #105A5B
 </style>
