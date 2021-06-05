@@ -67,6 +67,7 @@ const app = new Vue({
             loaded: true,
             modal_opened: false,
             new_reviews: [],
+            last_doc: null,
         }
     },
     watch: {

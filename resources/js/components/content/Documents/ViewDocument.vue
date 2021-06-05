@@ -14,7 +14,7 @@
             </svg>
             вернуться назад
         </p>
-        <Loading v-if="(!(found && isLoaded) || (found && !fileLoaded)) && !fileError"/>
+        <Loading v-if="(!(found && isLoaded) || (found && !fileLoaded)) && !(fileError || err)"/>
         <div class="not-found" v-if="!found && isLoaded">Документ не найден</div>
         <div class="document-body">
             <div v-if="fileError" class="not__found">
@@ -41,9 +41,11 @@ export default {
             fileLoaded: false,
             found: false,
             file: null,
+            doc_info: null,
             filename: null,
             file_link: null,
             fileError: false,
+            err: [],
         }
     },
     mounted() {
@@ -51,6 +53,17 @@ export default {
     },
     methods: {
         load() {
+            let req_info = axios.post('/docs/info', {
+                id: this.$route.params.id,
+            });
+            req_info.then(doc_info => {
+                this.$root.$data.last_doc = doc_info;
+                this.doc_info = doc_info;
+            });
+            req_info.catch(err => {
+                this.err.push(err);
+            })
+
             let req = axios.post('/docs', {
                 id: this.$route.params.id,
             });
@@ -71,10 +84,12 @@ export default {
                             else this.fileError = true;
                         })
                 } else {
-                    /* TODO Error */
+                    this.err.push(value['data']['status']['text']);
                 }
             });
-            req.catch(reason => {});
+            req.catch(err => {
+                this.err.push(err);
+            });
             req.finally(() => {
                 this.isLoaded = true;
             })
