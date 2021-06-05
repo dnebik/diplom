@@ -17,7 +17,7 @@
                     <span class="info">{{$root.$data.last_doc['sFIO']}}</span>
                 </div>
                 <form @submit.prevent="sentReview()" class="employee_selector">
-                    <InfoBox :class="{info_opacity: review_sent !== null}"
+                    <InfoBox :class="{info_opacity: review_status}"
                              :type="review_sent === 'sent' ? 'info' : 'danger'"
                              :text="review_sent === 'sent' ? 'Отправлено' : 'Ошибка'"
                              :visible="review_sent !== null"
@@ -68,6 +68,7 @@ export default {
             employee: null,
             waiting_emp: false,
             review_sent: null,
+            review_status: false,
         }
     },
     mounted() {
@@ -103,8 +104,9 @@ export default {
             })
             req.finally(() => {
                 this.waiting_emp = false;
+                this.review_status = true;
                 setTimeout(() => {
-                    this.review_sent = null;
+                    this.review_sent = false;
                 }, 5000);
             })
         },
