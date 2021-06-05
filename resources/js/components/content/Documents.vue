@@ -3,19 +3,29 @@
         <div class="nv-desctop">
             <navigate></navigate>
             <DocumentFilter :route-name="$route.name" @submit="setFilter"/>
-            <div v-if="$root.$data.last_doc">
-                <div>
-                    <span>ID:</span>
-                    <span>{{$root.$data.last_doc['id']}}</span>
+            <div class="doc_info" v-if="$root.$data.last_doc">
+                <div class="info_wrapper">
+                    <span class="title">ID:</span>
+                    <span class="info">{{$root.$data.last_doc['id_avt']}}</span>
                 </div>
-                <div>
-                    <span>Дата:</span>
-                    <span>{{doc_date}}</span>
+                <div class="info_wrapper">
+                    <span class="title">Дата:</span>
+                    <span class="info">{{doc_date}}</span>
                 </div>
-                <div>
-                    <span>Создатель:</span>
-                    <span>{{$root.$data.last_doc['sFIO']}}</span>
+                <div class="info_wrapper">
+                    <span class="title">Создатель:</span>
+                    <span class="info">{{$root.$data.last_doc['sFIO']}}</span>
                 </div>
+                <form @submit.prevent="sentReview()" class="employee_selector">
+                    <InfoBox :class="{info_opacity: review_sent !== null}"
+                             :type="review_sent === 'sent' ? 'info' : 'danger'"
+                             :text="review_sent === 'sent' ? 'Отправлено' : 'Ошибка'"
+                             :visible="review_sent !== null"
+                    />
+                    <span class="title">Получатель:</span>
+                    <EmployeeSelector :label="false" :with_none="false" v-model="employee"/>
+                    <button :disabled="waiting_emp" type="submit" class="btn submit">Отправить</button>
+                </form>
             </div>
         </div>
         <div style="width: 100%">
@@ -32,6 +42,8 @@
 
 import dateformat from 'dateformat';
 import DateRange from "./UI/DateRange";
+import InfoBox from "./UI/InfoBox";
+import EmployeeSelector from "./UI/EmployeeSelector";
 import InputBox from "./UI/InputBox";
 import Modal from "./UI/Modal";
 import DocumentFilter from "./UI/DocumentFilter";
@@ -41,7 +53,9 @@ export default {
         DateRange,
         InputBox,
         Modal,
-        DocumentFilter
+        DocumentFilter,
+        EmployeeSelector,
+        InfoBox
     },
     data() {
         return {
@@ -51,6 +65,9 @@ export default {
                 range: null,
                 status: 0,
             },
+            employee: null,
+            waiting_emp: false,
+            review_sent: null,
         }
     },
     mounted() {
@@ -66,6 +83,31 @@ export default {
         }
     },
     methods: {
+        sentReview() {
+            this.waiting_emp = true;
+
+            let req = axios.post('/docs/send_review', {
+                recipient: this.employee,
+                id: this.$root.$data.last_doc['id'],
+            });
+            req.then(value => {
+                let data = value['data'];
+                if (data['status']['code'] === 0) {
+                    this.review_sent = 'sent';
+                } else {
+                    this.review_sent = 'error';
+                }
+            });
+            req.catch(() => {
+                this.review_sent = 'error';
+            })
+            req.finally(() => {
+                this.waiting_emp = false;
+                setTimeout(() => {
+                    this.review_sent = null;
+                }, 5000);
+            })
+        },
         setFilter(filter) {
             this.open_filter = false;
             this.filtSet(filter);
@@ -111,6 +153,26 @@ export default {
 
 <style scoped lang="sass">
 
+.doc_info
+    margin-top: 190px
+    width: 250px
+    .info_wrapper
+        margin-bottom: 12px
+        .title
+            display: block
+            color: #D2D2D2
+            font-weight: 400
+            font-size: 18px
+        .info
+            display: block
+            color: #028F91
+            font-weight: 400
+            font-size: 18px
+    .employee_selector
+        margin-top: 25px
+
+
+
 .flex-body
     width: inherit
     overflow-x: hidden
@@ -125,6 +187,7 @@ export default {
 .nv-desctop
     margin-right: 63px
     min-width: 250px
+    position: relative
     > *
         position: fixed
     > .form
