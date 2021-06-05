@@ -3,6 +3,16 @@
         <div class="nv-desctop">
             <navigate></navigate>
             <DocumentFilter :route-name="$route.name" @submit="setFilter"/>
+            <div v-if="$root.$data.last_doc">
+                <div>
+                    <span>ID:</span>
+                    <span>{{$root.$data.last_doc['id']}}</span>
+                </div>
+                <div>
+                    <span>Дата:</span>
+                    <span>{{new Date($root.$data.last_doc['id'])}}</span>
+                </div>
+            </div>
         </div>
         <div style="width: 100%">
             <button v-if="$route.meta.needFilter" type="button" class="btn primary" @click="open_filter = !open_filter">Фильтр</button>
