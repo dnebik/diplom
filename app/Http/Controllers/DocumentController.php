@@ -170,7 +170,8 @@ class DocumentController extends Controller
             ])
             ->get();
 
-        return response()->json([
+        return response([
+            'status' => MyConst::OK,
             $file,
             'review' => is_null($review) ? [] : $review,
         ]);
