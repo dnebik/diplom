@@ -57,8 +57,9 @@ export default {
                 id: this.$route.params.id,
             });
             req_info.then(doc_info => {
-                this.$root.$data.last_doc = doc_info;
-                this.doc_info = doc_info;
+                doc_info = doc_info.data;
+                this.$root.$data.last_doc = doc_info['document'];
+                this.doc_info = doc_info['document'];
             });
             req_info.catch(err => {
                 this.err.push(err);

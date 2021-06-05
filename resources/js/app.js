@@ -6,6 +6,7 @@ import VCalendar from 'v-calendar';
 Vue.use(VCalendar, {
     componentPrefix: 'v',
 });
+// Vue.use(dateformat);
 
 const DEFAULT_TITLE = 'Document Server';
 

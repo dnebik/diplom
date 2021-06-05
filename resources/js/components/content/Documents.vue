@@ -10,7 +10,11 @@
                 </div>
                 <div>
                     <span>Дата:</span>
-                    <span>{{new Date($root.$data.last_doc['id'])}}</span>
+                    <span>{{doc_date}}</span>
+                </div>
+                <div>
+                    <span>Создатель:</span>
+                    <span>{{$root.$data.last_doc['sFIO']}}</span>
                 </div>
             </div>
         </div>
@@ -25,6 +29,8 @@
 </template>
 
 <script>
+
+import dateformat from 'dateformat';
 import DateRange from "./UI/DateRange";
 import InputBox from "./UI/InputBox";
 import Modal from "./UI/Modal";
@@ -53,6 +59,11 @@ export default {
     },
     destroyed() {
         document.removeEventListener('scroll', this.scroll)
+    },
+    computed: {
+        doc_date() {
+            return dateformat(new Date(this.$root.$data.last_doc['date']), "dd.mm.yyyy HH:MM");
+        }
     },
     methods: {
         setFilter(filter) {
