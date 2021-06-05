@@ -1,5 +1,5 @@
 <template>
-    <div class="list_item" @click="go()">
+    <div :class="{list_item: true, viewed: request_status == 2, reviewed: request_status == 3}" @click="go()">
         <div class="top">
             <span class="fio">{{fio}}</span>
             <span class="date">{{date}}</span>
@@ -23,6 +23,7 @@ export default {
         comment: '',
         status: '',
         id: '',
+        request_status: 0,
     },
     methods: {
         go() {
@@ -45,6 +46,17 @@ export default {
         min-height: 48px
         cursor: pointer
         transition: 0.2s
+
+        &.viewed
+            .top
+                background-color: #89C2F3 !important
+        &.reviewed
+            .top
+                background-color: #B5B5B5 !important
+            .bottom
+                color: #B5B5B5 !important
+
+
         &:hover
             transform: scale(1.05)
             box-shadow: 0 0 8px #48ACAD
