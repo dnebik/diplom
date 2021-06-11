@@ -218,7 +218,7 @@ class DocumentController extends Controller
         $views->addSelect('review_request_status.id as status_id');
         $views->addSelect('review_request_status.name as status_name');
         $views = self::filter($views, $request->post('range'), $request->post('like'));
-        $views->groupBy(['id_doc']);
+//        $views->groupBy(['id_doc']);
         if ($request->post('status') != 0) {
             $views->where('id_status', '=', $request->post('status'));
         }
