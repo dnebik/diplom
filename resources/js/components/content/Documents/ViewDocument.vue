@@ -104,6 +104,7 @@ export default {
 
 <style scoped lang="sass">
     .document-container
+        padding: 0 5px
         flex: auto
         .go-back
             font-size: 20px
