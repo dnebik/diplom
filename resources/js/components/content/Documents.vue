@@ -127,14 +127,14 @@ export default {
                 let start = new_filter.range.start;
                 start = new Date(
                     +start.getFullYear(),
-                    +start.getMonth(),
-                    +start.getDate() + 1
+                    +start.getMonth()+1,
+                    +start.getDate()+1
                 );
                 let end = new_filter.range.end;
                 end = new Date(
                     +end.getFullYear(),
-                    +end.getMonth(),
-                    +end.getDate() + 1,
+                    +end.getMonth()+1,
+                    +end.getDate()+1,
                     23,
                     59,
                     59,
