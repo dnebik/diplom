@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use PDO;
 
 class DocumentController extends Controller
 {
@@ -204,7 +205,6 @@ class DocumentController extends Controller
         $user = Auth::user();
         if (is_null($user)) return response(['status' => MyConst::UNAUTHORIZED]);
 
-
         $views = DB::table('review_requests')
             ->leftJoin('all_file', 'all_file.id', '=', 'review_requests.id_doc')
             ->leftJoin('peer_review', 'all_file.id_avt', '=', 'peer_review.id_request')
@@ -218,7 +218,7 @@ class DocumentController extends Controller
         $views->addSelect('review_request_status.id as status_id');
         $views->addSelect('review_request_status.name as status_name');
         $views = self::filter($views, $request->post('range'), $request->post('like'));
-//        $views->groupBy(['id_doc']);
+        $views->groupBy(['id_doc']);
         if ($request->post('status') != 0) {
             $views->where('id_status', '=', $request->post('status'));
         }
