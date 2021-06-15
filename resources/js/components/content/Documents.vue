@@ -111,6 +111,7 @@ export default {
         copyLeaveCheck(event) {
             if (event.target.classList.contains('copy')) {
                 this.copy_link.parentNode.removeChild(this.copy_link);
+                this.copy_link = null;
             }
         },
         copyClick(event) {
