@@ -192,7 +192,7 @@ class DocumentController extends Controller
                 'users.FIO',
                 'users.sFIO',
             ])
-            ->groupBy(['all_file.id'])
+            ->groupBy(['id_request'])
             ->get();
 
         $file = $file[0];
