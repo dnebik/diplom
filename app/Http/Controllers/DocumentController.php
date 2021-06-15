@@ -120,6 +120,7 @@ class DocumentController extends Controller
             ->leftJoin('peer_review', 'request_web.id_request', '=', 'peer_review.id_request')
             ->join('all_file', 'request_web.id_request', '=', 'all_file.id_avt')
             ->join('users', 'users.login', '=', 'all_file.login')
+            ->groupBy(['all_file.id'])
             ->orderBy('request_web.DateTimeSearch', 'desc');
 
         $views->where('request_web.login', '=', $user->login);
@@ -133,6 +134,7 @@ class DocumentController extends Controller
         $views = DB::table('all_file')
             ->leftJoin('peer_review', 'all_file.id_avt', '=', 'peer_review.id_request')
             ->join('users', 'users.login', '=', 'all_file.login')
+            ->groupBy(['all_file.id'])
             ->orderBy('all_file.DateTimeUpld', 'desc');
 
         $views = self::select($views);
@@ -148,6 +150,7 @@ class DocumentController extends Controller
         $views = DB::table('all_file')
             ->leftJoin('peer_review', 'all_file.id_avt', '=', 'peer_review.id_request')
             ->join('users', 'users.login', '=', 'all_file.login')
+            ->groupBy(['all_file.id'])
             ->orderBy('all_file.DateTimeUpld', 'desc');
 
         $views->where('users.login', '=', $user->login);
@@ -189,6 +192,7 @@ class DocumentController extends Controller
                 'users.FIO',
                 'users.sFIO',
             ])
+            ->groupBy(['all_file.id'])
             ->get();
 
         $file = $file[0];
@@ -218,7 +222,7 @@ class DocumentController extends Controller
         $views->addSelect('review_request_status.id as status_id');
         $views->addSelect('review_request_status.name as status_name');
         $views = self::filter($views, $request->post('range'), $request->post('like'));
-        $views->groupBy(['id_doc']);
+//        $views->groupBy(['id_doc']);
         if ($request->post('status') != 0) {
             $views->where('id_status', '=', $request->post('status'));
         }
