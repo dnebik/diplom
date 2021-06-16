@@ -203,6 +203,7 @@ class DocumentController extends Controller
                 'users.login',
                 'users.sFIO',
             ])
+            ->orderByDesc('DateTimeSearch')
             ->get();
 
         $file = $file[0];
