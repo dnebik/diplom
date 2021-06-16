@@ -39,6 +39,8 @@ export default {
     data() {
         return {
             list: [],
+            lazylist: [],
+            last: 0,
             waiting: false,
         }
     },
@@ -56,9 +58,35 @@ export default {
             this.waiting = true;
             this.list = [];
             let req = axios.post('/docs/history', this.filter);
-            req.then(value => {this.list = value['data']})
+            req.then(value => {
+                value['data'].forEach(value => {
+                    this.lazylist.push(value);
+                })
+                console.log(this.lazylist)
+                this.loadLazy();
+            })
             req.catch(() => {})
             req.finally(() => {this.waiting = false});
+        },
+        scrollCheck(event) {
+            let height = document.body.scrollHeight;
+            let bottom = window.scrollY + document.documentElement.clientHeight;
+            if (height - bottom < 200) {
+                this.loadLazy();
+            }
+        },
+        loadLazy() {
+            if (this.lazylist.length <= this.last && this.list.length !== 0)
+                return;
+
+            for (let i = this.last, count = 0; count < 40; i++) {
+                if (typeof this.lazylist[i] === "undefined")
+                    break;
+                this.list.push(this.lazylist[i])
+                this.last++;
+            }
+
+            console.log(this.list)
         },
         dateParse(date) {
             date = new Date(Date.parse(date));

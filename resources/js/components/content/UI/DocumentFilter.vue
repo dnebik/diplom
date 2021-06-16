@@ -98,4 +98,6 @@ export default {
                 justify-content: center
                 .select-label
                     width: 100%
+                button
+                    margin-top: 18px !important
 </style>
