@@ -28,7 +28,6 @@ export default {
     methods: {
         open() {
             let width = document.documentElement.scrollWidth;
-            console.log(width);
             if (width <= 414) {
                 this.open_modal = true;
             } else {
