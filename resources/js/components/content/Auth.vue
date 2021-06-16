@@ -88,7 +88,7 @@ export default {
             color: #48ACAD
         .btn
             float: right
-            margin-top: 15px
+            margin-top: 20px !important
         .warning
             position: absolute
             top: -5px
