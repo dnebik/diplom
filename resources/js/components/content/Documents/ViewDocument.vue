@@ -16,20 +16,23 @@
         </p>
         <Loading v-if="(!(found && isLoaded) || (found && !fileLoaded)) && !(fileError || err)"/>
         <div class="not-found" v-if="!found && isLoaded">Документ не найден</div>
-        <div class="document-body">
+        <div class="document-body" v-if="isLoaded && found">
             <div class="doc-info-body">
-                <form @submit.prevent="" class="send-review">
+                    <form @submit.prevent="addReview" class="send-review">
+                    <InfoBox v-if="review_result === 'ok'" type="info" text="Отправленно" />
+                    <InfoBox v-if="review_result === 'err'" type="danger" text="Ошибка отправки" />
                     <InputBox label="Решение" v-model="review_text" />
-                    <TextAreaBox label="Комментарий" v-model="review_comment" />
+                    <TextAreaBox label="Комментарий" v-model="review_comment" :max="300"/>
                     <button :disabled="review_text.length < 1" type="submit" class="btn submit">Отправить</button>
                 </form>
                 <div class="lists">
                     <DroppingList label="Прошлые решения">
                         <ReviewDocumentItem v-for="item in doc_info['reviews']"
-                                            name="Небренчин Д.С."
-                                            time="10:12" date="12.11.21"
-                                            comment="Нужно больше описаний"
-                                            review="Доработать"/>
+                                            :name="item['sFIO']"
+                                            :time="timeParse(item['date'])"
+                                            :date="dateParse(item['date'])"
+                                            :comment="item['comment']"
+                                            :review="item['essence']"/>
                         <InfoBox v-if="doc_info['reviews'].length < 1" type="danger" text="Решений по документу нет"/>
                     </DroppingList>
                     <DroppingList label="История просмотров">
@@ -86,6 +89,7 @@ export default {
             review_text: '',
             review_comment: '',
             review_waiting: '',
+            review_result: '',
         }
     },
     mounted() {
@@ -95,6 +99,33 @@ export default {
         this.$root.$data.last_doc = null;
     },
     methods: {
+        addReview() {
+            this.review_waiting = true;
+            let req_info = axios.post('/docs/add_review', {
+                id: this.$route.params.id,
+                essence: this.review_text,
+                comment: this.review_comment,
+            });
+            req_info.then(doc_info => {
+                if (doc_info.data['status']['code'] === 0) {
+                    this.review_result = 'ok';
+                    this.review_text = '';
+                    this.review_comment = '';
+                    this.load()
+                }
+                else
+                    this.review_result = 'err';
+            });
+            req_info.catch(err => {
+                this.review_result = 'err';
+            })
+            req_info.finally(() => {
+                this.review_waiting = false;
+                setTimeout(() => {
+                    this.review_result = '';
+                }, 5000)
+            })
+        },
         dateParse(date) {
             date = new Date(date);
             return ('' + date.getDate()).padStart(2, '0') + '.' +
@@ -107,6 +138,7 @@ export default {
                 ('' + date.getMinutes()).padStart(2, 0)
         },
         load() {
+            this.isLoaded = false;
             let req_info = axios.post('/docs/info', {
                 id: this.$route.params.id,
             });
