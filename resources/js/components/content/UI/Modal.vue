@@ -83,4 +83,8 @@ export default {
         &:not(.open)
             transform: rotateY(90deg)
 
+        & > .body
+            margin-top: 14px
+            width: 100%
+
 </style>
