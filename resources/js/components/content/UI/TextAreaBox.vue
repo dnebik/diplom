@@ -3,6 +3,7 @@
         <label>
             <textarea @input="$emit('input', $event.target.value)"
                       rows="1"
+                      v-text="value"
                       ref="textarea">
             </textarea>
         </label>
