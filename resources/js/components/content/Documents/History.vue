@@ -62,7 +62,6 @@ export default {
                 value['data'].forEach(value => {
                     this.lazylist.push(value);
                 })
-                console.log(this.lazylist)
                 this.loadLazy();
             })
             req.catch(() => {})
