@@ -33,7 +33,7 @@ export default {
 
 <style scoped lang="sass">
     .review-document-item
-        margin-bottom: 19px
+        margin-bottom: 10px
         .top
             border-radius: 3px 3px 0 0
             background-color: #028F91
