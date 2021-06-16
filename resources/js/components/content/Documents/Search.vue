@@ -86,8 +86,6 @@ export default {
                 this.list.push(this.lazylist[i])
                 this.last++;
             }
-
-            console.log(this.list)
         },
         dateParse(date) {
             date = new Date(Date.parse(date));
