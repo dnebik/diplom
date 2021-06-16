@@ -1,5 +1,6 @@
 <template>
     <div class="document-container">
+        <h1 class="title">Документ</h1>
         <p class="go-back" @click="$router.back()">
             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  viewBox="0 0 447.243 447.243" style="enable-background:new 0 0 447.243 447.243;" xml:space="preserve">
@@ -18,6 +19,39 @@
         <div class="not-found" v-if="!found && isLoaded">Документ не найден</div>
         <div class="document-body" v-if="isLoaded && found">
             <div class="doc-info-body">
+
+                    <div class="doc-main-info">
+
+                        <button class="btn primary sendreview" @click="emp_modal = true">Отправить</button>
+                        <Modal :view-modal="emp_modal" @close="emp_modal = false">
+                            <span class="title">Получатель:</span>
+                            <EmployeeSelector :label="false" :with_none="false" v-model="employee"/>
+                            <button :disabled="waiting_emp" type="submit" class="btn submit">Отправить</button>
+                        </Modal>
+
+                        <div class="info_wrapper">
+                            <span class="title">ID:</span>
+                            <span class="info copy">{{$root.$data.last_doc['id_avt']}}</span>
+                        </div>
+                        <div class="info_wrapper">
+                            <span class="title">Дата:</span>
+                            <span class="info">{{dateParse(doc_info['date']) + " " + timeParse(doc_info['date'])}}</span>
+                        </div>
+                        <div class="info_wrapper">
+                            <span class="title">Создатель:</span>
+                            <span class="info">{{$root.$data.last_doc['sFIO']}}</span>
+                        </div>
+                        <form @submit.prevent="sentReview()" class="employee_selector">
+                            <InfoBox :class="{info_opacity: review_status}"
+                                     v-if="review_sent"
+                                     :type="review_sent === 'sent' ? 'info' : 'danger'"
+                                     :text="review_sent === 'sent' ? 'Отправлено' : 'Ошибка'"
+                                     :visible="review_sent !== null"
+                            />
+                        </form>
+                    </div>
+
+
                     <form @submit.prevent="addReview" class="send-review">
                     <InfoBox v-if="review_result === 'ok'" type="info" text="Отправленно" />
                     <InfoBox v-if="review_result === 'err'" type="danger" text="Ошибка отправки" />
@@ -62,6 +96,8 @@ import DroppingList from "../UI/DroppingList";
 import ReviewDocumentItem from "../UI/ReviewDocumentItem"
 import ViewDocumentItem from "../UI/ViewDocumentItem";
 import InfoBox from "../UI/InfoBox";
+import EmployeeSelector from "../UI/EmployeeSelector";
+import Modal from "../UI/Modal";
 export default {
     name: "ViewDocument",
     components: {
@@ -72,7 +108,9 @@ export default {
         DroppingList,
         ReviewDocumentItem,
         ViewDocumentItem,
-        InfoBox
+        InfoBox,
+        EmployeeSelector,
+        Modal
     },
     data() {
         return {
@@ -90,6 +128,12 @@ export default {
             review_comment: '',
             review_waiting: '',
             review_result: '',
+
+            employee: null,
+            waiting_emp: false,
+            review_sent: null,
+            review_status: false,
+            emp_modal: false,
         }
     },
     mounted() {
@@ -99,6 +143,32 @@ export default {
         this.$root.$data.last_doc = null;
     },
     methods: {
+        sentReview() {
+            this.waiting_emp = true;
+
+            let req = axios.post('/docs/send_review', {
+                recipient: this.employee,
+                id: this.$root.$data.last_doc['id'],
+            });
+            req.then(value => {
+                let data = value['data'];
+                if (data['status']['code'] === 0) {
+                    this.review_sent = 'sent';
+                } else {
+                    this.review_sent = 'error';
+                }
+            });
+            req.catch(() => {
+                this.review_sent = 'error';
+            })
+            req.finally(() => {
+                this.waiting_emp = false;
+                this.review_status = true;
+                setTimeout(() => {
+                    this.review_sent = false;
+                }, 5000);
+            })
+        },
         addReview() {
             this.review_waiting = true;
             let req_info = axios.post('/docs/add_review', {
@@ -186,6 +256,33 @@ export default {
 </script>
 
 <style scoped lang="sass">
+
+    .btn.sendreview
+        position: absolute
+        right: 20px
+
+    .doc-main-info
+        @media (min-width: 414px)
+            display: none
+        width: 250px
+        .info_wrapper
+            margin-bottom: 12px
+        .title
+            display: block
+            color: #D2D2D2
+            font-weight: 400
+            font-size: 18px
+        .info
+            display: block
+            color: #028F91
+            font-weight: 400
+            font-size: 18px
+            width: max-content
+            &.copy
+                cursor: pointer
+        .employee_selector
+            margin-top: 25px
+
     .document-container
         padding: 0 5px
         flex: auto
@@ -223,8 +320,7 @@ export default {
     .doc-info-body
         display: flex
         flex-direction: column
-        justify-content: center
-        align-items: center
+        align-items: start
         padding-top: 8px
         margin-bottom: 43px
 

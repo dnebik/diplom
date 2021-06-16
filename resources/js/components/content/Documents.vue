@@ -209,6 +209,11 @@ export default {
 <style scoped lang="sass">
 
 .doc_info
+    @media (min-width: 414px)
+        &.mobile
+            display: none
+    &.mobile
+        margin-top: 0 !important
     margin-top: 190px
     width: 250px
     .info_wrapper
