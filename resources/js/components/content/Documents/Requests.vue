@@ -87,7 +87,7 @@ export default {
             if (this.lazylist.length <= this.last && this.list.length !== 0)
                 return;
 
-            for (let i = this.last, count = 0; count < 40; i++) {
+            for (let i = this.last, count = 0; count < 40; i++, count++) {
                 if (typeof this.lazylist[i] === "undefined")
                     break;
                 this.list.push(this.lazylist[i])
