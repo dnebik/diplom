@@ -217,6 +217,26 @@ class DocumentController extends Controller
         ]);
     }
 
+    public function addReview(Request $request) {
+        $user = Auth::user();
+        if (is_null($user)) return response(['status' => MyConst::UNAUTHORIZED]);
+        if (is_null($request->post('id'))) return response(['status' => MyConst::BAD_REQUEST]);
+        if (is_null($request->post('essence'))) return response(['status' => MyConst::BAD_REQUEST]);
+
+        $insert = DB::table('peer_review')
+            ->insert([
+                'login' => $user->login,
+                'id_request' => $request->post('id'),
+                'essence' => $request->post('essence'),
+                'comment' => $request->has('comment') ? $request->post('comment') : null
+            ]);
+
+        if ($insert)
+            return response(['status' => MyConst::OK]);
+        else
+            return response(['status' => MyConst::SAVE_ERROR]);
+    }
+
     public function getRequests(Request $request) {
         $user = Auth::user();
         if (is_null($user)) return response(['status' => MyConst::UNAUTHORIZED]);
