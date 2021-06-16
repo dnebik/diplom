@@ -195,9 +195,20 @@ class DocumentController extends Controller
             ->groupBy(['id_request'])
             ->get();
 
+        $views = DB::table('request_web')
+            ->where('id_request', '=', $request->post('id'))
+            ->join('users', 'users.login', '=', 'request_web.login')
+            ->select([
+                'DateTimeSearch as date',
+                'users.login',
+                'users.sFIO',
+            ])
+            ->get();
+
         $file = $file[0];
         $file = (array)$file;
         $file['reviews'] = is_null($review) ? [] : $review;
+        $file['views'] = is_null($views) ? [] : $views;
 
         return response([
             'status' => MyConst::OK,
