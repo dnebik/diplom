@@ -192,7 +192,7 @@ class DocumentController extends Controller
                 'users.FIO',
                 'users.sFIO',
             ])
-            ->groupBy(['id_request'])
+            ->orderByDesc('DateTimeComment')
             ->get();
 
         $views = DB::table('request_web')
@@ -228,8 +228,27 @@ class DocumentController extends Controller
                 'login' => $user->login,
                 'id_request' => $request->post('id'),
                 'essence' => $request->post('essence'),
-                'comment' => $request->has('comment') ? $request->post('comment') : null
+                'comment' => !is_null($request->post('comment')) ? $request->post('comment') : ''
             ]);
+
+        $file = DB::table('all_file')
+            ->select('id')
+            ->where('id_avt', $request->post('id'))
+            ->get();
+
+
+        if ($file) {
+            $file = (array)$file[0];
+            $update = DB::table('review_requests')
+                ->where([
+                    'id_recipient' => $user->id,
+                    'id_doc' => $file['id']
+                ])
+                ->update([
+                    'id_status' => 3,
+                ]);
+        }
+
 
         if ($insert)
             return response(['status' => MyConst::OK]);
@@ -254,7 +273,7 @@ class DocumentController extends Controller
         $views->addSelect('review_request_status.id as status_id');
         $views->addSelect('review_request_status.name as status_name');
         $views = self::filter($views, $request->post('range'), $request->post('like'));
-//        $views->groupBy(['id_doc']);
+        $views->groupBy(['review_requests.id']);
         if ($request->post('status') != 0) {
             $views->where('id_status', '=', $request->post('status'));
         }
