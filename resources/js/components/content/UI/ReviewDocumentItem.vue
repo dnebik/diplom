@@ -61,7 +61,7 @@ export default {
             background-color: #EAF4FD
             .review
                 color: #48ACAD
-                margin-bottom: 5px
+                margin-bottom: 9px
             .comment
                 color: #105A5B
 </style>
