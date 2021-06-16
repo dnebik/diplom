@@ -1,5 +1,5 @@
 <template>
-    <div class="view-document-item">
+    <div class="review-document-item">
         <div class="top">
             <span class="fio">{{name}}</span>
             <div class="datetime">
@@ -32,7 +32,7 @@ export default {
 </script>
 
 <style scoped lang="sass">
-    .view-document-item
+    .review-document-item
         margin-bottom: 19px
         .top
             border-radius: 3px 3px 0 0
