@@ -175,6 +175,7 @@ class DocumentController extends Controller
                 'all_file.login as creator_login',
                 'users.FIO',
                 'users.sFIO',
+                'users.id as user_id',
             ])
             ->limit(1)
             ->get();
