@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 v-if="file !== null && title !== null">{{title}}</h2>
-        <a v-if="link" :href="link" :download="filename">Download</a>
+        <a class="download" v-if="link" :href="link" :download="filename"><div class="btn primary">Скачать</div></a>
         <div>{{error.join(', ')}}</div>
         <div class="pages" ref="pages">
 
@@ -186,6 +186,10 @@ $modalPadding: 10px
 canvas
     outline: 1px solid #000
     margin-bottom: 15px
+
+.download
+    display: block
+    margin-bottom: 20px
 
 .pages
     max-width: 650px
